@@ -1,0 +1,16 @@
+<resources>
+
+    <!-- 操作菜单 -->
+    <dimen name="titlebar_menu_view_width">180dp</dimen>
+    <dimen name="titlebar_menu_textsize">12sp</dimen>
+
+    <!-- 字体大小 -->
+    <dimen name="textsize_big">20sp</dimen>
+    <dimen name="textsize_middle">18sp</dimen>
+    <dimen name="textsize_small">16sp</dimen>
+    <dimen name="textsize_list_small">14sp</dimen>
+    <dimen name="textsize_copyright">12sp</dimen>
+
+    <dimen name="popupmenu_padingleft">30dp</dimen>
+
+</resources>

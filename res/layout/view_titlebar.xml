@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:background="@drawable/titlebar_bg_selector"
+    android:gravity="center_vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/title_tv"
+            style="@style/titleTextNormal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:paddingLeft="70dp"
+            android:paddingRight="70dp"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:orientation="horizontal" >
+
+        <!-- 标题栏返回按钮 -->
+
+        <LinearLayout
+            android:id="@+id/titlebar_back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/titlebar_btn_bg_selector"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="2dp"
+            android:paddingRight="5dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/titlebar_back"
+                android:src="@drawable/ic_titlebar_back" />
+
+            <TextView
+                android:id="@+id/title_back_tv"
+                style="@style/moduleTextNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/titlebar_back"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+		<LinearLayout
+            android:id="@+id/title_left_line1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/titlebar_line_selector" />
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/titlebar_line_selector2" />
+        </LinearLayout>
+
+        <!-- 标题栏进度条 -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp" >
+
+            <ProgressBar
+                android:id="@+id/titlebar_pb"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:indeterminateDrawable="@drawable/progressbar_light"
+                android:visibility="gone" />
+        </LinearLayout>
+
+		<LinearLayout
+            android:id="@+id/title_right_line2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/titlebar_line_selector" />
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/titlebar_line_selector2" />
+        </LinearLayout>
+
+        <!-- 标题栏更多按钮 -->
+
+        <ImageButton
+            android:id="@+id/titlebar_more_btn"
+            android:layout_width="46dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/titlebar_btn_bg_selector"
+            android:contentDescription="@string/titlebar_more"
+            android:src="@drawable/ic_titlebar_more"
+            android:text="@string/titlebar_more"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+		<LinearLayout
+            android:id="@+id/title_right_line1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/titlebar_line_selector" />
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/titlebar_line_selector2" />
+        </LinearLayout>
+
+        <!-- 标题栏搜索按钮 -->
+
+        <ImageButton
+            android:id="@+id/titlebar_search_btn"
+            android:layout_width="46dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/titlebar_btn_bg_selector"
+            android:contentDescription="@string/titlebar_search"
+            android:src="@drawable/ic_titlebar_search"
+            android:visibility="visible" />
+    </LinearLayout>
+
+</FrameLayout>

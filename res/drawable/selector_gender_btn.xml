@@ -1,0 +1,8 @@
+<selector xmlns:Android="http://schemas.android.com/apk/res/android">
+
+    <item Android:drawable="@drawable/personalinfo_edit_radio_selected" Android:state_checked="true" Android:state_pressed="false"/>
+    <item Android:drawable="@drawable/personalinfo_edit_radio" Android:state_checked="false" Android:state_pressed="false"/>
+    <item Android:drawable="@drawable/personalinfo_edit_radio_selected" Android:state_checked="true" Android:state_pressed="true"/>
+    <item Android:drawable="@drawable/personalinfo_edit_radio_selected" Android:state_checked="false" Android:state_pressed="true"/>
+
+</selector>

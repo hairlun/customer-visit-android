@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="pref_view">
+        <attr name="custom_title" format="string" />
+        <attr name="description" format="string" />
+        <attr name="key" format="string" />
+    </declare-styleable>
+
+</resources>

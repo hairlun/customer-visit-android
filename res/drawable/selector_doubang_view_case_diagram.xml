@@ -1,0 +1,6 @@
+<selector xmlns:Android="http://schemas.android.com/apk/res/android">
+
+    <item Android:drawable="@drawable/dubang_btn_example_press" Android:state_pressed="true"/>
+    <item Android:drawable="@drawable/dubang_btn_example"/>
+
+</selector>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sini="http://schemas.android.com/apk/res/com.jade.customervisit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <com.jade.customervisit.ui.view.TitleBarView
+        android:id="@+id/service_list_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        sini:custom_title="@string/service_list" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/service_list_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/service_list_shade_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#AA000000"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</LinearLayout>

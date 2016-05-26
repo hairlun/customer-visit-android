@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/title_relativelayout" >
+
+    <Button
+        android:id="@+id/title_btn_back"
+        style="@style/title_btn_back" />
+
+    <TextView
+        android:id="@+id/title_name"
+        style="@style/title_name" />
+
+    <Button
+        android:id="@+id/title_btn_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/selector_doubang_view_case_diagram"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

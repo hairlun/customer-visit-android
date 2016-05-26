@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ********************************** -->
+    <!-- *     Title TextSize Start       * -->
+    <!-- ********************************** -->
+    <style name="titleTextXLarge">
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="titleTextLarge">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="titleTextMedium">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="titleTextNormal">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="titleTextSmall">
+        <item name="android:textSize">18sp</item>
+    </style>
+    <!-- ********************************** -->
+    <!-- *     Title TextSize End         * -->
+    <!-- ********************************** -->
+
+
+    <!-- ********************************** -->
+    <!-- *     Module TextSize Start      * -->
+    <!-- ********************************** -->
+    <style name="moduleTextXLarge">
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="moduleTextLarge">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="moduleTextMedium">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="moduleTextNormal">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="moduleTextSmall">
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!-- ********************************** -->
+    <!-- *     Module TextSize End        * -->
+    <!-- ********************************** -->
+
+
+    <!-- ********************************** -->
+    <!-- *     ModuleNum TextSize Start   * -->
+    <!-- ********************************** -->
+    <style name="moduleNumTextXLarge">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="moduleNumTextLarge">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="moduleNumTextMedium">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="moduleNumTextNormal">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="moduleNumTextSmall">
+        <item name="android:textSize">12sp</item>
+    </style>
+    <!-- ********************************** -->
+    <!-- *     ModuleNum TextSize End     * -->
+    <!-- ********************************** -->
+
+
+    <!-- ********************************** -->
+    <!-- *     Settings TextSize Start    * -->
+    <!-- ********************************** -->
+    <style name="settingsTextXLarge">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="settingsTextLarge">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="settingsTextMedium">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="settingsTextNormal">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="settingsTextSmall">
+        <item name="android:textSize">14sp</item>
+    </style>
+    <!-- ********************************** -->
+    <!-- *     Settings TextSize End      * -->
+    <!-- ********************************** -->
+
+</resources>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sini="http://schemas.android.com/apk/res/com.jade.customervisit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <com.jade.customervisit.ui.view.TitleBarView
+        android:id="@+id/service_main_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        sini:custom_title="@string/app_name" />
+
+	<ScrollView
+	    android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+        android:layout_weight="1.0"
+	    android:background="@color/bg_e4"
+	    android:orientation="vertical" >
+
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical" >
+
+	        <TextView
+	            android:id="@+id/customer_name"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_horizontal"
+	            android:layout_marginTop="30dip"
+	            android:text="@string/app_name"
+	            android:textColor="@color/text_49"
+	            android:textSize="20sp" />
+
+	        <LinearLayout
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_horizontal"
+	            android:layout_marginTop="30dip"
+	            android:orientation="vertical" >
+
+	            <Button
+	                android:id="@+id/two_dimensional_code_sign"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:background="@drawable/login_btn_click_green"
+	                android:text="@string/two_dimensional_code_sign" />
+
+	            <Button
+	                android:id="@+id/service_contents"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="15dip"
+	                android:background="@drawable/login_btn_click_green"
+	                android:text="@string/service_contents" />
+
+	            <Button
+	                android:id="@+id/trace_service"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="15dip"
+	                android:background="@drawable/login_btn_click_green"
+	                android:text="@string/trace_service" />
+
+	            <Button
+	                android:id="@+id/service_evaluation"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="15dip"
+	                android:background="@drawable/login_btn_click_green"
+	                android:text="@string/service_evaluation" />
+
+	            <Button
+	                android:id="@+id/two_dimensional_code_exit"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="15dip"
+	                android:background="@drawable/login_btn_click_green"
+	                android:text="@string/two_dimensional_code_exit" />
+	        </LinearLayout>
+	    </LinearLayout>
+
+	</ScrollView>
+
+</LinearLayout>

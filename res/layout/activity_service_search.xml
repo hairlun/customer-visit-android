@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sini="http://schemas.android.com/apk/res/com.jade.customervisit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <com.jade.customervisit.ui.view.TitleBarView
+        android:id="@+id/service_search_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        sini:custom_title="@string/titlebar_search" />
+
+    <ScrollView
+        android:id="@+id/service_search_sv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        android:overScrollMode="never" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/login_box"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dip"
+                    android:gravity="center_vertical"
+                    android:paddingRight="10dip"
+                    android:text="@string/keyword"
+                    android:textColor="#778ca1"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/service_search_keyword_edit"
+                    style="?android:attr/textViewStyle"
+                    android:layout_width="160dip"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:maxLength="20"
+                    android:singleLine="true"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_color" >
+
+        <Button
+            android:id="@+id/search"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dip"
+            android:layout_marginLeft="50dip"
+            android:layout_marginRight="50dip"
+            android:layout_marginTop="8dip"
+            android:background="@drawable/selector_login_btn"
+            android:text="搜  索"
+            android:textColor="@color/white_color"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</LinearLayout>

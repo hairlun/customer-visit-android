@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:id="@+id/title_back_layout"
+        style="@style/title_back_layout"
+        android:orientation="horizontal"
+        android:layout_alignParentLeft="true" >
+
+        <Button
+            android:id="@+id/title_btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/active_back_scan"
+            android:clickable="false" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/title_integral_help_layout"
+        style="@style/title_back_layout"
+        android:layout_alignParentRight="true" >
+
+        <Button
+            android:id="@+id/integral_help_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/app_scan_right_selector"
+            android:clickable="false" />
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/title_gps_tv"
+        android:layout_toLeftOf="@id/title_integral_help_layout"
+        android:layout_toRightOf="@id/title_back_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textSize="16sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white" />"
+
+</RelativeLayout>

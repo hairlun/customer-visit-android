@@ -1,0 +1,70 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.jade.customervisit"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <application
+        android:name="com.jade.customervisit.CVApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar" >
+        
+        <meta-data android:name="webserver.url.base" android:value="http://117.34.71.28/web/mobile/"/>
+        
+        <activity android:name=".ui.LoginActivity" android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.jade.customervisit.ui.service.ServiceListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jade.customervisit.ui.service.ServiceMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jade.customervisit.ui.service.ServiceContentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jade.customervisit.ui.service.TraceServiceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jade.customervisit.ui.service.ServiceSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.jade.customervisit.scancode.MipcaActivityCapture"
+            android:screenOrientation="portrait" />
+        <!-- <activity
+            android:name=".ui.TimeSignActivity"
+            android:screenOrientation="portrait" /> -->
+
+        <service android:name="com.amap.api.location.APSService"/>
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="a64a1477b0980aa67521cb2941448414" />
+    </application>
+
+</manifest>

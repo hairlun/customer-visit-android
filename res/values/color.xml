@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="black_color">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="text_hint">#A9A8A8</color>
+    <color name="text_color">#686868</color>
+    <color name="bee_bg">#F3F3F3</color>
+    <color name="broad_name_color">#474747</color>
+    <color name="broad_content_color">#AB463A</color>
+    <color name="interesters">#5F5D5B</color>
+    <color name="activity_manager">#C0B1B3</color>
+    <color name="left_item">#E4E7E7</color>
+    <color name="person_name">#F8FBFB</color>
+    <color name="person_car_style">#7f7377</color>
+    <color name="text_ff">#ff1080D6</color>
+    <color name="message_content">#8A8A8A</color>
+    <color name="poly">#BCD2EE</color>
+    <color name="text_16">#ff166db6</color>
+    <color name="about_text">#ff3030</color>
+    <color name="red_text">#e82f1b</color>
+    <color name="blue_text">#FF2968C4</color>
+    <color name="black_text">#FF333333</color>
+    <color name="gray_text">#949494</color>
+    <color name="owner_text">#5c5c5c</color>
+    <color name="owner_name">#a4a4a4</color>
+    <color name="introduction_tag">#5c5c5c</color>
+    <color name="introduction_tag_text">#a7a7a7</color>
+    <color name="activity_title">#62605E</color>
+    <color name="activity_time">#AAABA6</color>
+    <color name="activity_content">#7C7C7C</color>
+    <color name="bg_e4">#ffe4e4e4</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="result_view_another">#e0FFFFFF</color>
+    <color name="result_view_gray">#FFcccccc</color>
+    <color name="discount_code_whole_bg">#FFe0dfde</color>
+    <color name="result_view_four_corner">#FFfeb370</color>
+    <color name="text_49">#ff494949</color>
+    <color name="result_view">#b0000000</color>
+    <color name="white_color">#ffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="card_help_info_input">#464646</color>
+    <color name="select_photo_text">#377bc9</color>
+    <color name="select_photo_cancel">#3f3f3f</color>
+    <color name="group_dynamic_come">#666666</color>
+    <color name="group_dynamic_count">#e8563c</color>
+    <color name="group_dynamic_content">#242424</color>
+    <color name="gray_line">#FFCCCCCC</color>
+    <color name="menu_bg_pressed">#11000000</color>
+    <color name="menu_bg_normal">#00000000</color>
+    
+    <!-- 下拉刷新 -->
+    <color name="red">#ffDB3A3A</color>
+    <color name="blue">#60AFF6</color>
+    <color name="green">#ff2BB219</color>
+    <color name="orange">#ffFF8B20</color>
+
+    <!-- 列表默认背景色 -->
+    <color name="listitem_bg_normal">#FFFFFFFF</color>
+    <!-- 列表激活背景色 -->
+    <color name="listitem_bg_pressed">#FFEEEEEE</color>
+
+    <!-- 选择列表 -->
+    <color name="choose_item_normal">#FF090909</color>
+    <color name="choose_item_selected">#FF2968C4</color>
+
+    <!-- TitleBar  背景 -->
+    <color name="titlebar_bg_normal">#C5261F</color>
+
+    <!-- TitleBar  搜索按钮背景 -->
+    <color name="titlebar_search_bg_normal">#FFC5261F</color>
+    <color name="titlebar_search_bg_pressed">#ffA40500</color>
+
+    <!-- 搜索界面 -->
+    <color name="searchbar_bg">#FFCAC9CF</color>
+    <color name="cancel_btn_bg_normal">#FFCAC9CF</color>
+    <color name="cancel_btn_bg_pressed">#FFBEBDC3</color>
+
+    <!-- 列表底部工具条的按钮默认背景色 -->
+    <color name="bottom_bar_normal">#FFEEEEEE</color>
+    <!-- 列表底部工具条的按钮激活背景色 -->
+    <color name="bottom_bar_pressed">#FF4983D7</color>
+    <!-- 列表底部工具条的按钮不可用背景色 -->
+    <color name="bottom_bar_disable">#FFbbbbbb</color>
+    
+</resources>

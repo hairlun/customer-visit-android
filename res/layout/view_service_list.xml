@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.jade.customervisit"
+    android:id="@+id/my_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff" >
+
+    <com.jade.customervisit.ui.view.swipe.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:direction="both" >
+
+        <ListView
+            android:id="@+id/service_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/gray_line"
+            android:dividerHeight="1px"
+            android:fadingEdge="none"
+            android:listSelector="@drawable/leftmenu_item_bg"
+            android:overScrollMode="never"
+            android:scrollbars="none" >
+        </ListView>
+    </com.jade.customervisit.ui.view.swipe.SwipeRefreshLayout>
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:indeterminateDrawable="@drawable/progressbar_dark"
+        android:padding="5dp" />
+
+</FrameLayout>

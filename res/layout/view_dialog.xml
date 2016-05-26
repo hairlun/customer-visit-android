@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:background="@color/gray_line"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/dialog_title_tv"
+        style="@style/moduleTextNormal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="1px"
+        android:background="@drawable/dialog_title_bg"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="@string/push_notification"
+        android:textColor="@color/black_text" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        android:layout_weight="1.0" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/dialog_msg_tv"
+                style="@style/settingsTextNormal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.0"
+                android:background="@color/white"
+                android:ellipsize="end"
+                android:minWidth="260dp"
+                android:padding="20dp"
+                android:text="@string/push_msg_content"
+                android:textColor="@color/black_text" />
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="1px"
+        android:background="@color/gray_line" >
+
+        <Button
+            android:id="@+id/dialog_btn1"
+            style="@style/settingsTextNormal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/dialog_btn_left_bg"
+            android:text="@string/push_msg_i_see"
+            android:textColor="@drawable/dialog_btn_text_selector" />
+
+        <Button
+            android:id="@+id/dialog_btn2"
+            style="@style/settingsTextNormal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1px"
+            android:layout_weight="1.0"
+            android:background="@drawable/dialog_btn_right_bg"
+            android:text="@string/push_msg_handle"
+            android:textColor="@drawable/dialog_btn_text_selector" />
+
+        <Button
+            android:id="@+id/dialog_btn3"
+            style="@style/settingsTextNormal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1px"
+            android:layout_weight="1.0"
+            android:background="@drawable/dialog_btn_right_bg"
+            android:text="@string/push_msg_handle"
+            android:textColor="@drawable/dialog_btn_text_selector" />
+    </LinearLayout>
+
+</LinearLayout>

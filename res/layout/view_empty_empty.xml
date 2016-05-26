@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp" >
+
+    <TextView
+        android:id="@+id/textViewMessage"
+        style="@style/moduleNumTextNormal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_empty"
+        android:gravity="center_horizontal"
+        android:text="@string/empty_message"
+        android:textColor="@color/gray_text" />
+
+    <Button
+        android:id="@+id/buttonEmpty"
+        style="@style/moduleNumTextNormal"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bottombar_btn_bg_selector"
+        android:padding="10dp"
+        android:text="@string/empty_button"
+        android:textColor="@drawable/bottombar_btn_text_selector" />
+
+</LinearLayout>
