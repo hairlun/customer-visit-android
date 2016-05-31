@@ -31,6 +31,8 @@ import com.jade.customervisit.ui.view.dialog.LoadingDialog;
 import com.jade.customervisit.ui.view.dialog.MsgDialog;
 import com.jade.customervisit.util.CommonUtils;
 import com.jade.customervisit.util.GetSysInfoParser;
+import com.jade.customervisit.util.PrefUtil;
+import com.jade.customervisit.util.SDCardUtils;
 import com.jade.customervisit.util.ToastUtil;
 
 /**
@@ -52,7 +54,7 @@ public class UpgradeManager {
     // .getAbsolutePath();
 
     public static String APK_DIR = Environment.getExternalStorageDirectory()
-            .getAbsolutePath() + "/HLMobileOA/file/apk/%s.apk";
+            .getAbsolutePath() + "/CustomerVisit/file/apk/%s.apk";
 
     /** 版本名称 */
     public static String versionName = "";
@@ -82,7 +84,7 @@ public class UpgradeManager {
     public interface Url {
         
         /** 更新地址 */
-        String GET_VERSION_INFO = "/upgrade.do?platform=android";
+        String GET_VERSION_INFO = "/getVersionInfo.do?";
     	
     }
 
