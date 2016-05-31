@@ -34,8 +34,7 @@ import org.apache.http.HeaderElement;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpRequestBase;
-
-import com.lidroid.xutils.http.RequestParams;
+import org.xutils.http.RequestParams;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -381,11 +380,13 @@ public class CommonUtils {
      * @param values
      * @return
      */
-    public static RequestParams createParams(String[] keys, String[] values) {
-        RequestParams params = new RequestParams();
-        int len = keys.length;
-        for (int i = 0; i < len; i++) {
-            params.addBodyParameter(keys[i], values[i]);
+    public static RequestParams createParams(String[] keys, String[] values, String url) {
+        RequestParams params = new RequestParams(url);
+        if (keys != null) {
+            int len = keys.length;
+            for (int i = 0; i < len; i++) {
+                params.addBodyParameter(keys[i], values[i]);
+            }
         }
         return params;
     }

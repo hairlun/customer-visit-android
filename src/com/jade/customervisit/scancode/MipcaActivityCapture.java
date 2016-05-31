@@ -3,6 +3,8 @@ package com.jade.customervisit.scancode;
 import java.io.IOException;
 import java.util.Vector;
 
+import org.xutils.common.Callback.Cancelable;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -21,7 +23,6 @@ import com.jade.customervisit.scancode.view.ViewfinderView;
 import com.jade.customervisit.ui.BaseActivity;
 import com.jade.customervisit.util.Constants;
 import com.jade.customervisit.util.ToastUtil;
-import com.lidroid.xutils.http.HttpHandler;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -136,7 +137,7 @@ public class MipcaActivityCapture extends BaseActivity implements Callback, AMap
     
     private String serviceId;
     
-    HttpHandler<String> submitHttpHandler;
+    Cancelable submitHttpHandler;
 
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;

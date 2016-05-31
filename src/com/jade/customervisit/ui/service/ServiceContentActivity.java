@@ -3,6 +3,8 @@ package com.jade.customervisit.ui.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.xutils.common.Callback.Cancelable;
+
 import com.jade.customervisit.R;
 import com.jade.customervisit.adapter.ServiceContentSubmitAdapter;
 import com.jade.customervisit.bean.ContentItem;
@@ -15,7 +17,6 @@ import com.jade.customervisit.ui.BaseActivity;
 import com.jade.customervisit.ui.view.TitleBarView;
 import com.jade.customervisit.ui.view.dialog.LoadingDialog;
 import com.jade.customervisit.util.ToastUtil;
-import com.lidroid.xutils.http.HttpHandler;
 
 import android.os.Bundle;
 import android.view.View;
@@ -69,9 +70,9 @@ public class ServiceContentActivity extends BaseActivity implements OnClickListe
     private ServiceContent serviceContent;
 
     /** 列表http请求处理器，用于取消请求 */
-    HttpHandler<String> contentHttpHandler;
+    Cancelable contentHttpHandler;
     
-    HttpHandler<String> submitHttpHandler;
+    Cancelable submitHttpHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

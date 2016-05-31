@@ -9,6 +9,9 @@ package com.jade.customervisit.bll;
 import java.io.File;
 import java.util.List;
 
+import org.xutils.common.Callback.Cancelable;
+import org.xutils.http.RequestParams;
+
 import com.jade.customervisit.CVApplication;
 import com.jade.customervisit.bean.GetVisitInfoResult;
 import com.jade.customervisit.bean.LoginResult;
@@ -27,8 +30,6 @@ import com.jade.customervisit.util.service.QueryContentParser;
 import com.jade.customervisit.util.service.QueryServiceContentParser;
 import com.jade.customervisit.util.service.QueryServiceStatusParser;
 import com.jade.customervisit.util.service.SubmitParser;
-import com.lidroid.xutils.http.HttpHandler;
-import com.lidroid.xutils.http.RequestParams;
 
 /**
  * @author Administrator
@@ -161,84 +162,77 @@ public class ServiceManager {
         String GET_VISIT_INFO = "/getVisitInfo.do?";
     }
 
-    public static HttpHandler<String> queryServiceContent(int type, int page, String keyword,
+    public static Cancelable queryServiceContent(int type, int page, String keyword,
             final RequestListener<QueryServiceContentResult> listener) {
         String[] keys = { RequestKey.USER_ID, RequestKey.TYPE, RequestKey.PAGE, RequestKey.LIMIT, RequestKey.KEYWORD };
         String[] values = { CVApplication.cvApplication.getUserid(), String.valueOf(type),
                 String.valueOf(page), String.valueOf(LIMIT), keyword };
-        RequestParams params = CommonUtils.createParams(keys, values);
-        return WebService.post(Url.QUERY_SERVICE_CONTENT, params, listener,
+        return WebService.post(Url.QUERY_SERVICE_CONTENT, keys, values, listener,
                 new QueryServiceContentParser(listener));
     }
 
-    public static HttpHandler<String> queryContent(String serviceId,
+    public static Cancelable queryContent(String serviceId,
             final RequestListener<QueryContentResult> listener) {
         String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID };
         String[] values = { CVApplication.cvApplication.getUserid(), serviceId };
-        RequestParams params = CommonUtils.createParams(keys, values);
-        return WebService.post(Url.QUERY_CONTENT, params, listener,
+        return WebService.post(Url.QUERY_CONTENT, keys, values, listener,
                 new QueryContentParser(listener));
     }
 
-    public static HttpHandler<String> queryServiceStatus(String serviceId,
+    public static Cancelable queryServiceStatus(String serviceId,
             final RequestListener<QueryServiceStatusResult> listener) {
         String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID };
         String[] values = { CVApplication.cvApplication.getUserid(), serviceId };
-        RequestParams params = CommonUtils.createParams(keys, values);
-        return WebService.post(Url.QUERY_SERVICE_STATUS, params, listener,
+        return WebService.post(Url.QUERY_SERVICE_STATUS, keys, values, listener,
                 new QueryServiceStatusParser(listener));
     }
 
-    public static HttpHandler<String> getVisitInfo(int type, int page, String keyword,
+    public static Cancelable getVisitInfo(int type, int page, String keyword,
             final RequestListener<GetVisitInfoResult> listener) {
         String[] keys = { RequestKey.USER_ID, RequestKey.TYPE, RequestKey.PAGE, RequestKey.LIMIT,
                 RequestKey.KEYWORD };
         String[] values = { CVApplication.cvApplication.getUserid(), String.valueOf(type),
                 String.valueOf(page), String.valueOf(LIMIT), keyword };
-        RequestParams params = CommonUtils.createParams(keys, values);
-        return WebService.post(Url.GET_VISIT_INFO, params, listener,
+        return WebService.post(Url.GET_VISIT_INFO, keys, values, listener,
                 new GetVisitInfoParser(listener));
     }
 
-    public static HttpHandler<String> submitContent(String ids, String serviceId,
+    public static Cancelable submitContent(String ids, String serviceId,
             final RequestListener<SubmitResult> listener) {
         String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID, RequestKey.CONTENT_IDS };
         String[] values = { CVApplication.cvApplication.getUserid(), serviceId, ids };
-        RequestParams params = CommonUtils.createParams(keys, values);
-        return WebService.post(Url.SUBMIT_SERVICE_CONTENT, params, listener,
+        return WebService.post(Url.SUBMIT_SERVICE_CONTENT, keys, values, listener,
                 new SubmitParser(listener));
     }
 
-    public static HttpHandler<String> codeSign(String serviceId, String code,
+    public static Cancelable codeSign(String serviceId, String code,
     		String flag, String lat, String lon, String city,
             final RequestListener<SubmitResult> listener) {
         String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID, RequestKey.CODE,
         		RequestKey.FLAG, RequestKey.LAT, RequestKey.LNG, RequestKey.CITY };
         String[] values = { CVApplication.cvApplication.getUserid(), serviceId, code,
         		flag, lat, lon, city };
-        RequestParams params = CommonUtils.createParams(keys, values);
-        return WebService.post(Url.CODE_SIGN, params, listener,
+        return WebService.post(Url.CODE_SIGN, keys, values, listener,
                 new SubmitParser(listener));
     }
 
-    public static HttpHandler<String> praise(String serviceId, String code,
+    public static Cancelable praise(String serviceId, String code,
     		final RequestListener<SubmitResult> listener) {
         String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID, RequestKey.CODE };
         String[] values = { CVApplication.cvApplication.getUserid(), serviceId, code };
-        RequestParams params = CommonUtils.createParams(keys, values);
-        return WebService.post(Url.PRAISE, params, listener,
+        return WebService.post(Url.PRAISE, keys, values, listener,
                 new SubmitParser(listener));
     }
 
-    public static HttpHandler<String> photoSign(String serviceId, List<File> files,
+    public static Cancelable photoSign(String serviceId, List<File> files,
             final RequestListener<SubmitResult> listener) {
         String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID };
         String[] values = { CVApplication.cvApplication.getUserid(), serviceId };
-        RequestParams params = CommonUtils.createParams(keys, values);
+        RequestParams params = CommonUtils.createParams(keys, values, WebService.URL + Url.SUBMIT_SERVICE_RESULT);
         for (File file : files) {
             params.addBodyParameter(RequestKey.FILE, file);
         }
-        return WebService.upload(WebService.URL + Url.SUBMIT_SERVICE_RESULT, params, listener,
+        return WebService.upload(params, listener,
                 new SubmitParser(listener));
     }
 }

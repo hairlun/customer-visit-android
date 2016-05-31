@@ -2,6 +2,8 @@ package com.jade.customervisit.ui.service;
 
 import java.util.HashSet;
 
+import org.xutils.common.Callback.Cancelable;
+
 import com.jade.customervisit.R;
 import com.jade.customervisit.bean.QueryContentResult;
 import com.jade.customervisit.bean.QueryServiceStatusResult;
@@ -14,7 +16,6 @@ import com.jade.customervisit.ui.view.TitleBarView;
 import com.jade.customervisit.ui.view.dialog.LoadingDialog;
 import com.jade.customervisit.util.Constants;
 import com.jade.customervisit.util.ToastUtil;
-import com.lidroid.xutils.http.HttpHandler;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -64,7 +65,7 @@ public class ServiceMainActivity extends BaseActivity implements OnClickListener
 	private LoadingDialog loadingDialog;
 
     /** http请求处理器，用于取消请求 */
-    HttpHandler<String> httpHandler;
+    Cancelable httpHandler;
     private HashSet<String> urlSet = new HashSet<String>();
 
     private int codeSignFlag;

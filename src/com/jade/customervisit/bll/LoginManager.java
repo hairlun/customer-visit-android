@@ -6,13 +6,14 @@
  */
 package com.jade.customervisit.bll;
 
+import org.xutils.common.Callback.Cancelable;
+import org.xutils.http.RequestParams;
+
 import com.jade.customervisit.bean.LoginResult;
 import com.jade.customervisit.network.RequestListener;
 import com.jade.customervisit.network.WebService;
 import com.jade.customervisit.util.CommonUtils;
 import com.jade.customervisit.util.Login.LoginParser;
-import com.lidroid.xutils.http.HttpHandler;
-import com.lidroid.xutils.http.RequestParams;
 
 /**
  * @author Administrator
@@ -66,12 +67,11 @@ public class LoginManager {
      * @param listener
      * @return
      */
-    public static HttpHandler<String> accountLogin(String account, String pwd,
+    public static Cancelable accountLogin(String account, String pwd,
             final RequestListener<LoginResult> listener) {
         String[] keys = { RequestKey.ACCOUNT, RequestKey.PWD };
         String[] values = { account, pwd };
-        RequestParams params = CommonUtils.createParams(keys, values);
-        return WebService.post(Url.ACCOUNT_LOGIN, params, listener,
+        return WebService.post(Url.ACCOUNT_LOGIN, keys, values, listener,
                 new LoginParser(listener));
     }
 

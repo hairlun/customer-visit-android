@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.xutils.common.Callback.Cancelable;
+
 import com.jade.customervisit.CVApplication;
 import com.jade.customervisit.R;
 import com.jade.customervisit.bean.PicturePropertiesBean;
@@ -22,7 +24,6 @@ import com.jade.customervisit.util.CommonUtils;
 import com.jade.customervisit.util.Constants;
 import com.jade.customervisit.util.FileSystemManager;
 import com.jade.customervisit.util.ToastUtil;
-import com.lidroid.xutils.http.HttpHandler;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -102,7 +103,7 @@ public class TraceServiceActivity extends BaseActivity implements OnClickListene
      */
     private ArrayList<String> paths = new ArrayList<String>();
     
-    HttpHandler<String> submitHttpHandler;
+    Cancelable submitHttpHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

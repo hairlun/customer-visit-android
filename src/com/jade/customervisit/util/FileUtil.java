@@ -17,9 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.http.util.EncodingUtils;
-
-import com.lidroid.xutils.util.LogUtils;
-
+import org.xutils.common.util.LogUtil;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -311,7 +309,7 @@ public class FileUtil
             out.flush();
             out.close();
             rs &= true;
-            LogUtils.w("FileUtil.save: file size="+ file.length());
+            LogUtil.w("FileUtil.save: file size="+ file.length());
         }
         catch (FileNotFoundException e)
         {

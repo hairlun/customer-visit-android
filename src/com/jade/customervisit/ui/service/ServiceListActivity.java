@@ -3,6 +3,8 @@ package com.jade.customervisit.ui.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.xutils.common.util.LogUtil;
+
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.BroadcastReceiver;
@@ -28,7 +30,6 @@ import com.jade.customervisit.ui.BaseActivity;
 import com.jade.customervisit.ui.view.ActionItem;
 import com.jade.customervisit.ui.view.TitleBarView;
 import com.jade.customervisit.util.Constants;
-import com.lidroid.xutils.util.LogUtils;
 
 public class ServiceListActivity extends BaseActivity implements
 		OnItemClickListener, OnPageChangeListener, OnClickListener {
@@ -61,7 +62,7 @@ public class ServiceListActivity extends BaseActivity implements
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
-            LogUtils.i("action = " + action);
+            LogUtil.i("action = " + action);
             if (Constants.ACTION_REFRESH_LIST.equals(action)) {
             	doRefresh();
             }

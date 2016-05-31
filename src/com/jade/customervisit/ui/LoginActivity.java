@@ -1,5 +1,7 @@
 package com.jade.customervisit.ui;
 
+import org.xutils.common.Callback.Cancelable;
+
 import com.jade.customervisit.CVApplication;
 import com.jade.customervisit.R;
 import com.jade.customervisit.bean.LoginResult;
@@ -10,7 +12,6 @@ import com.jade.customervisit.ui.view.dialog.AbsCustomDialog;
 import com.jade.customervisit.util.CommonUtils;
 import com.jade.customervisit.util.NetUtils;
 import com.jade.customervisit.util.ToastUtil;
-import com.lidroid.xutils.http.HttpHandler;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -57,7 +58,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener
     private String password;
 
     /** http请求处理器，用于取消请求 */
-    HttpHandler<String> httpHandler;
+    Cancelable httpHandler;
 
     AbsCustomDialog dialog;
     

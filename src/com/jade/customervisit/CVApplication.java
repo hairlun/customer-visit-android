@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.xutils.x;
+
 import com.jade.customervisit.util.FileSystemManager;
 import com.jade.customervisit.util.L;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
@@ -63,6 +65,8 @@ public class CVApplication extends Application {
     @Override
 	public void onCreate() {
 		super.onCreate();
+		x.Ext.init(this);
+        x.Ext.setDebug(DEBUG);
 		cvApplication = this;
         L.allowD = DEBUG;
         L.allowE = DEBUG;

@@ -3,6 +3,8 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.xutils.common.Callback.Cancelable;
+
 import com.jade.customervisit.R;
 import com.jade.customervisit.adapter.ServiceContentAdapter;
 import com.jade.customervisit.bean.ServiceContent;
@@ -13,7 +15,6 @@ import com.jade.customervisit.ui.view.swipe.SwipeRefreshLayout;
 import com.jade.customervisit.ui.view.swipe.SwipeRefreshLayout.OnRefreshListener;
 import com.jade.customervisit.ui.view.swipe.SwipeRefreshLayoutDirection;
 import com.jade.customervisit.util.ToastUtil;
-import com.lidroid.xutils.http.HttpHandler;
 
 import android.content.Context;
 import android.content.Intent;
@@ -43,7 +44,7 @@ public class ServiceContentView extends LinearLayout implements OnRefreshListene
 	private List<ServiceContent> dataInfo = new ArrayList<ServiceContent>();
 
     /** http请求处理器，用于取消请求 */
-    HttpHandler<String> httpHandler;
+    Cancelable httpHandler;
 
 	public ServiceContentView(Context context) {
 		super(context);
