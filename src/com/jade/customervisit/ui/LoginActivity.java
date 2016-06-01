@@ -4,8 +4,10 @@ import org.xutils.common.Callback.Cancelable;
 
 import com.jade.customervisit.CVApplication;
 import com.jade.customervisit.R;
+import com.jade.customervisit.bean.GetSysInfoResult;
 import com.jade.customervisit.bean.LoginResult;
 import com.jade.customervisit.bll.LoginManager;
+import com.jade.customervisit.bll.UpgradeManager;
 import com.jade.customervisit.network.RequestListener;
 import com.jade.customervisit.ui.service.ServiceListActivity;
 import com.jade.customervisit.ui.view.dialog.AbsCustomDialog;
@@ -69,6 +71,13 @@ public class LoginActivity extends BaseActivity implements OnClickListener
         setContentView(R.layout.activity_login);
         
         init();
+        UpgradeManager.checkUpdate(context, new RequestListener<GetSysInfoResult>() {
+
+            @Override
+            public void onSuccess(GetSysInfoResult result) {
+            }
+            
+        });
     }
     
     /**
