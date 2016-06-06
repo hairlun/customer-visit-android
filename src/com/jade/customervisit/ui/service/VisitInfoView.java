@@ -114,7 +114,7 @@ public class VisitInfoView extends LinearLayout implements OnRefreshListener, On
         };
 
         // 开始请求列表数据
-        httpHandler = ServiceManager.getVisitInfo(0, page, keyword, callback);
+        httpHandler = ServiceManager.getVisitInfo(2, page, keyword, callback);
     }
     
     private void setData(List<VisitInfo> data) {

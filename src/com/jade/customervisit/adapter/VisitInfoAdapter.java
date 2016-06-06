@@ -92,16 +92,17 @@ public class VisitInfoAdapter extends BaseAdapter
         {
             viewHolder = (ViewHolder)convertView.getTag();
         }
-        viewHolder.nickName.setText(data.get(position).getUsername());
-        viewHolder.praise.setText("0".equals(data.get(position).getPraise()) ? "未评价" : "满意");
-        viewHolder.arriveTime.setText(data.get(position).getArriveTime());
-        viewHolder.leaveTime.setText(data.get(position).getLeaveTime());
-        viewHolder.city.setText(data.get(position).getCity());
-        if (data.get(position).getImageList() != null && data.get(position).getImageList().size() > 0)
+        VisitInfo visitInfo = data.get(position);
+        viewHolder.nickName.setText(visitInfo.getUsername());
+        viewHolder.praise.setText("0".equals(visitInfo.getPraise()) ? "未评价" : "满意");
+        viewHolder.arriveTime.setText(visitInfo.getArriveTime());
+        viewHolder.leaveTime.setText(visitInfo.getLeaveTime());
+        viewHolder.city.setText(visitInfo.getCity());
+        if (visitInfo.getImageList() != null && visitInfo.getImageList().size() > 0)
         {
             viewHolder.photoGridview.setVisibility(View.VISIBLE);
             viewHolder.line.setVisibility(View.VISIBLE);
-            viewHolder.photoGridview.setAdapter(new PhotoAdapter(data.get(position).getImageList()));
+            viewHolder.photoGridview.setAdapter(new PhotoAdapter(visitInfo.getImageList()));
         }
         else
         {

@@ -14,17 +14,13 @@ import org.xutils.http.RequestParams;
 
 import com.jade.customervisit.CVApplication;
 import com.jade.customervisit.bean.GetVisitInfoResult;
-import com.jade.customervisit.bean.LoginResult;
 import com.jade.customervisit.bean.QueryContentResult;
 import com.jade.customervisit.bean.QueryServiceContentResult;
 import com.jade.customervisit.bean.QueryServiceStatusResult;
 import com.jade.customervisit.bean.SubmitResult;
-import com.jade.customervisit.bll.LoginManager.RequestKey;
-import com.jade.customervisit.bll.LoginManager.Url;
 import com.jade.customervisit.network.RequestListener;
 import com.jade.customervisit.network.WebService;
 import com.jade.customervisit.util.CommonUtils;
-import com.jade.customervisit.util.Login.LoginParser;
 import com.jade.customervisit.util.service.GetVisitInfoParser;
 import com.jade.customervisit.util.service.QueryContentParser;
 import com.jade.customervisit.util.service.QueryServiceContentParser;
@@ -229,6 +225,7 @@ public class ServiceManager {
         String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID };
         String[] values = { CVApplication.cvApplication.getUserid(), serviceId };
         RequestParams params = CommonUtils.createParams(keys, values, WebService.URL + Url.SUBMIT_SERVICE_RESULT);
+        params.setMultipart(true);
         for (File file : files) {
             params.addBodyParameter(RequestKey.FILE, file);
         }
