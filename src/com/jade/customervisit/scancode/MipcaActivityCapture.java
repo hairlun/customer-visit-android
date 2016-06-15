@@ -651,7 +651,11 @@ public class MipcaActivityCapture extends BaseActivity implements Callback, AMap
             public void onClick(View v)
             {
                 MipcaActivityCapture.this.finish();
-                startActivity(new Intent(MipcaActivityCapture.this, MipcaActivityCapture.class));
+                Intent codeIntent = new Intent(MipcaActivityCapture.this, MipcaActivityCapture.class);
+                codeIntent.putExtra("type", "0");
+                codeIntent.putExtra("flag", "0");
+                codeIntent.putExtra("serviceId", serviceId);
+                startActivity(codeIntent);
                 dialog.dismiss();
             }
         });
