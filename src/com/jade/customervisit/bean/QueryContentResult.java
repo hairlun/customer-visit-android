@@ -11,28 +11,28 @@ import java.util.List;
 
 /**
  * @author Administrator
- *
+ * 
  */
 public class QueryContentResult extends RequestResult {
 
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = -950000388811198971L;
+    private static final long serialVersionUID = -950000388811198971L;
 
-	private List<ContentItem> contentList = new ArrayList<ContentItem>();
-    
+    private List<ContentItem> contentList = new ArrayList<ContentItem>();
+
     private int total;
 
     public QueryContentResult() {
-		super();
-	}
+        super();
+    }
 
-	public QueryContentResult(String retcode, String retinfo) {
-		super(retcode, retinfo);
-	}
+    public QueryContentResult(String retcode, String retinfo) {
+        super(retcode, retinfo);
+    }
 
-	public List<ContentItem> getContentList() {
+    public List<ContentItem> getContentList() {
         return contentList;
     }
 
@@ -41,19 +41,19 @@ public class QueryContentResult extends RequestResult {
     }
 
     public int getTotal() {
-		return total;
-	}
+        return total;
+    }
 
-	public void setTotal(int total) {
-		this.total = total;
-	}
+    public void setTotal(int total) {
+        this.total = total;
+    }
 
-	@Override
+    @Override
     public String toString() {
-        return "ServiceContentListResult [contentList="
-                + contentList + ", total=" + total + ", isSuccesses()=" + isSuccesses()
+        return "ServiceContentListResult [contentList=" + contentList
+                + ", total=" + total + ", isSuccesses()=" + isSuccesses()
                 + ", getRetcode()=" + getRetcode() + ", getRetinfo()="
                 + getRetinfo() + ", getResponse()=" + getResponse() + "]";
     }
-    
+
 }

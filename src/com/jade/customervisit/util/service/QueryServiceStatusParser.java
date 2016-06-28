@@ -10,17 +10,17 @@ import com.jade.customervisit.network.IAsyncListener;
 import com.jade.customervisit.util.AbsBaseParser;
 
 public class QueryServiceStatusParser extends
-		AbsBaseParser<QueryServiceStatusResult> {
+        AbsBaseParser<QueryServiceStatusResult> {
 
-	public QueryServiceStatusParser(
-			IAsyncListener<QueryServiceStatusResult> listener) {
-		super(listener);
-	}
+    public QueryServiceStatusParser(
+            IAsyncListener<QueryServiceStatusResult> listener) {
+        super(listener);
+    }
 
-	@Override
-	public QueryServiceStatusResult parse(String response) {
-		QueryServiceStatusResult result = null;
-		try {
+    @Override
+    public QueryServiceStatusResult parse(String response) {
+        QueryServiceStatusResult result = null;
+        try {
             JSONObject json = new JSONObject(response);
             if (json != null) {
                 String retcode = json.optString(RequestResult.RET_CODE_KEY);
@@ -38,11 +38,11 @@ public class QueryServiceStatusParser extends
                 result.setPraiseFlag(praiseFlag);
                 result.setResponse(response);
             }
-		} catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
             onFailure(e);
         }
-		return result;
-	}
+        return result;
+    }
 
 }

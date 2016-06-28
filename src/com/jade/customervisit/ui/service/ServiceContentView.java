@@ -26,58 +26,58 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-public class ServiceContentView extends LinearLayout implements OnRefreshListener,
-		OnItemClickListener, IServiceView {
+public class ServiceContentView extends LinearLayout implements
+        OnRefreshListener, OnItemClickListener, IServiceView {
 
-	private ListView lv;
-	private SwipeRefreshLayout swipe;
-	private ProgressBar progressBar;
+    private ListView lv;
+    private SwipeRefreshLayout swipe;
+    private ProgressBar progressBar;
 
-	private ServiceContentAdapter adapter;
-	public int page = 1;
-	private int total = 0;
-	public String keyword = "";
+    private ServiceContentAdapter adapter;
+    public int page = 1;
+    private int total = 0;
+    public String keyword = "";
 
-	/**
-	 * 服务列表
-	 */
-	private List<ServiceContent> dataInfo = new ArrayList<ServiceContent>();
+    /**
+     * 服务列表
+     */
+    private List<ServiceContent> dataInfo = new ArrayList<ServiceContent>();
 
     /** http请求处理器，用于取消请求 */
     Cancelable httpHandler;
 
-	public ServiceContentView(Context context) {
-		super(context);
-		initView();
-	}
+    public ServiceContentView(Context context) {
+        super(context);
+        initView();
+    }
 
-	private void initView() {
-		LayoutInflater.from(getContext()).inflate(R.layout.view_service_list,
-				this);
-		swipe = (SwipeRefreshLayout) findViewById(R.id.swipe);
-		swipe.setOnRefreshListener(this);
-		lv = (ListView) findViewById(R.id.service_listview);
-		lv.setOnItemClickListener(this);
-		progressBar = (ProgressBar) findViewById(R.id.progressbar);
-		progressBar.setVisibility(View.GONE);
+    private void initView() {
+        LayoutInflater.from(getContext()).inflate(R.layout.view_service_list,
+                this);
+        swipe = (SwipeRefreshLayout) findViewById(R.id.swipe);
+        swipe.setOnRefreshListener(this);
+        lv = (ListView) findViewById(R.id.service_listview);
+        lv.setOnItemClickListener(this);
+        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.GONE);
 
-		adapter = new ServiceContentAdapter(dataInfo, getContext());
-		lv.setAdapter(adapter);	
-		queryServiceContentList();
-	}
+        adapter = new ServiceContentAdapter(dataInfo, getContext());
+        lv.setAdapter(adapter);
+        queryServiceContentList();
+    }
 
-	public void queryServiceContentList() {
-	    if (page > 1 && (page - 1) * ServiceManager.LIMIT >= total) {
-	        ToastUtil.showShort(getContext(), "没有更多数据了");
-	        swipe.setRefreshing(false);
-	        return;
-	    }
-	    RequestListener<QueryServiceContentResult> callback = new RequestListener<QueryServiceContentResult>() {
+    public void queryServiceContentList() {
+        if (page > 1 && (page - 1) * ServiceManager.LIMIT >= total) {
+            ToastUtil.showShort(getContext(), "没有更多数据了");
+            swipe.setRefreshing(false);
+            return;
+        }
+        RequestListener<QueryServiceContentResult> callback = new RequestListener<QueryServiceContentResult>() {
 
             @Override
             public void onStart() {
                 swipe.post(new Runnable() {
-                    
+
                     @Override
                     public void run() {
                         swipe.setRefreshing(true);
@@ -86,7 +86,8 @@ public class ServiceContentView extends LinearLayout implements OnRefreshListene
             }
 
             @Override
-            public void onSuccess(int statusCode, QueryServiceContentResult result) {
+            public void onSuccess(int statusCode,
+                    QueryServiceContentResult result) {
                 if (result != null) {
                     if (result.isSuccesses()) {
                         dataInfo = result.getServiceContentList();
@@ -96,13 +97,15 @@ public class ServiceContentView extends LinearLayout implements OnRefreshListene
                         if (page == 1) {
                             ToastUtil.showShort(getContext(), "没有数据");
                         } else {
-                            ToastUtil.showShort(getContext(), result.getRetinfo());
+                            ToastUtil.showShort(getContext(),
+                                    result.getRetinfo());
                         }
                     } else {
                         ToastUtil.showShort(getContext(), result.getRetinfo());
                     }
                 } else {
-                    ToastUtil.showShort(getContext(), R.string.connect_exception);
+                    ToastUtil.showShort(getContext(),
+                            R.string.connect_exception);
                 }
             }
 
@@ -118,42 +121,43 @@ public class ServiceContentView extends LinearLayout implements OnRefreshListene
         };
 
         // 开始请求列表数据
-        httpHandler = ServiceManager.queryServiceContent(0, page, keyword, callback);
-	}
-	
-	private void setData(List<ServiceContent> data) {
-	    if (page == 1) {
-	        adapter.setData(data);
-	    } else {
-	        adapter.addData(data);
-	    }
-	    adapter.notifyDataSetChanged();
-	}
+        httpHandler = ServiceManager.queryServiceContent(0, page, keyword,
+                callback);
+    }
 
-	@Override
-	public void onRefresh(SwipeRefreshLayoutDirection direction) {
-		if (SwipeRefreshLayoutDirection.TOP == direction) {
-		    page = 1;
-		    keyword = "";
-		    queryServiceContentList();
-		} else if (SwipeRefreshLayoutDirection.BOTTOM == direction) {
-		    page++;
-		    queryServiceContentList();
-		}
-	}
+    private void setData(List<ServiceContent> data) {
+        if (page == 1) {
+            adapter.setData(data);
+        } else {
+            adapter.addData(data);
+        }
+        adapter.notifyDataSetChanged();
+    }
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		Intent intent = new Intent(getContext(), ServiceMainActivity.class);
-		intent.putExtra("serviceContent", dataInfo.get(position));
-		getContext().startActivity(intent);
-	}
+    @Override
+    public void onRefresh(SwipeRefreshLayoutDirection direction) {
+        if (SwipeRefreshLayoutDirection.TOP == direction) {
+            page = 1;
+            keyword = "";
+            queryServiceContentList();
+        } else if (SwipeRefreshLayoutDirection.BOTTOM == direction) {
+            page++;
+            queryServiceContentList();
+        }
+    }
 
-	@Override
-	public void onRefresh() {
-		page = 1;
-	    keyword = "";
-	    queryServiceContentList();
-	}
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position,
+            long id) {
+        Intent intent = new Intent(getContext(), ServiceMainActivity.class);
+        intent.putExtra("serviceContent", dataInfo.get(position));
+        getContext().startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
+        page = 1;
+        keyword = "";
+        queryServiceContentList();
+    }
 }

@@ -22,7 +22,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 /**
  * 搜索主界面
  * 
- * @author huangzhongwen
+ * @author zhoushujie
  * 
  */
 public class SearchActivity extends BaseActivity implements OnClickListener,

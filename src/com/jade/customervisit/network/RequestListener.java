@@ -3,7 +3,7 @@ package com.jade.customervisit.network;
 /**
  * 登录回调对象
  * 
- * @author huangzhongwen
+ * @author zhoushujie
  * 
  */
 public abstract class RequestListener<T> implements IAsyncListener<T> {
@@ -12,7 +12,7 @@ public abstract class RequestListener<T> implements IAsyncListener<T> {
     public void onSuccess(T result) {
 
     }
-    
+
     @Override
     public void onSuccess(int stateCode, T result) {
 

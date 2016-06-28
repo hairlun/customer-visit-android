@@ -29,13 +29,13 @@ import com.jade.customervisit.util.service.SubmitParser;
 
 /**
  * @author Administrator
- *
+ * 
  */
 public class ServiceManager {
 
     /**  */
     public static final String TAG = ServiceManager.class.getName();
-    
+
     public static final int LIMIT = 20;
 
     /**
@@ -45,36 +45,36 @@ public class ServiceManager {
 
         /** 用户id KEY */
         String USER_ID = "userId";
-        
+
         /**
          * 服务类型，0=未完成，1=已完成，其他=全部
          */
         String TYPE = "type";
-        
+
         String PAGE = "page";
-        
+
         String LIMIT = "limit";
-        
+
         String KEYWORD = "keyword";
-        
+
         String START_TIME = "startTime";
-        
+
         String END_TIME = "endTime";
-        
+
         String SERVICE_ID = "serviceId";
-        
+
         String CONTENT_IDS = "ids";
-        
+
         String CODE = "code";
-        
+
         String FLAG = "flag";
-        
+
         String LAT = "lat";
-        
+
         String LNG = "lng";
-        
+
         String CITY = "city";
-        
+
         String FILE = "file";
     }
 
@@ -85,53 +85,53 @@ public class ServiceManager {
 
         /** 总数量KEY */
         String TOTAL = "total";
-        
+
         /**
          * 服务内容表数据
          */
         String DATA_INFO = "dataInfo";
-        
+
         String SERVICE_ID = "serviceId";
-        
+
         String NAME = "name";
-        
+
         String TITLE = "title";
-        
+
         String CREATE_TIME = "createTime";
-        
+
         /**
          * 服务类型，0=未完成，1=已完成，其他=全部
          */
         String TYPE = "type";
-        
+
         String CODE_SIGN_FLAG = "codeSignFlag";
-        
+
         String CODE_EXIT_FLAG = "codeExitFlag";
-        
+
         String CONTENT_FLAG = "contentFlag";
-        
+
         String PRAISE_FLAG = "praiseFlag";
-        
+
         String TAKE_PHOTO_FLAG = "takePhotoFlag";
-        
+
         String CUSTOMER_ID = "userId";
-        
+
         String CUSTOMER_NAME = "username";
-        
+
         String ARRIVE_TIME = "arriveTime";
-        
+
         String LEAVE_TIME = "leaveTime";
-        
+
         String CITY = "city";
-        
+
         String PRAISE = "praise";
-        
+
         String IMAGE_LIST = "imageList";
-        
+
         String IMAGE_URL = "imageUrl";
-        
+
         String CONTENT_ID = "id";
-        
+
         String CONTENT_NAME = "name";
     }
 
@@ -141,30 +141,33 @@ public class ServiceManager {
     public interface Url {
         /** 查询服务内容列表 */
         String QUERY_SERVICE_CONTENT = "/queryServiceContent.do?";
-        
+
         String QUERY_CONTENT = "/queryContent.do?";
-        
+
         String QUERY_SERVICE_STATUS = "/queryServiceStatus.do?";
-        
+
         String SUBMIT_SERVICE_CONTENT = "/submitServiceContent.do?";
-        
+
         String CODE_SIGN = "/codeSign.do?";
-        
+
         String PRAISE = "/praise.do?";
-        
+
         String SUBMIT_SERVICE_RESULT = "/submitServiceResult.do?";
-        
+
         /** 获取拜访信息 */
         String GET_VISIT_INFO = "/getVisitInfo.do?";
     }
 
-    public static Cancelable queryServiceContent(int type, int page, String keyword,
+    public static Cancelable queryServiceContent(int type, int page,
+            String keyword,
             final RequestListener<QueryServiceContentResult> listener) {
-        String[] keys = { RequestKey.USER_ID, RequestKey.TYPE, RequestKey.PAGE, RequestKey.LIMIT, RequestKey.KEYWORD };
-        String[] values = { CVApplication.cvApplication.getUserid(), String.valueOf(type),
-                String.valueOf(page), String.valueOf(LIMIT), keyword };
-        return WebService.post(Url.QUERY_SERVICE_CONTENT, keys, values, listener,
-                new QueryServiceContentParser(listener));
+        String[] keys = { RequestKey.USER_ID, RequestKey.TYPE, RequestKey.PAGE,
+                RequestKey.LIMIT, RequestKey.KEYWORD };
+        String[] values = { CVApplication.cvApplication.getUserid(),
+                String.valueOf(type), String.valueOf(page),
+                String.valueOf(LIMIT), keyword };
+        return WebService.post(Url.QUERY_SERVICE_CONTENT, keys, values,
+                listener, new QueryServiceContentParser(listener));
     }
 
     public static Cancelable queryContent(String serviceId,
@@ -179,43 +182,49 @@ public class ServiceManager {
             final RequestListener<QueryServiceStatusResult> listener) {
         String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID };
         String[] values = { CVApplication.cvApplication.getUserid(), serviceId };
-        return WebService.post(Url.QUERY_SERVICE_STATUS, keys, values, listener,
-                new QueryServiceStatusParser(listener));
+        return WebService.post(Url.QUERY_SERVICE_STATUS, keys, values,
+                listener, new QueryServiceStatusParser(listener));
     }
 
     public static Cancelable getVisitInfo(int type, int page, String keyword,
             final RequestListener<GetVisitInfoResult> listener) {
-        String[] keys = { RequestKey.USER_ID, RequestKey.TYPE, RequestKey.PAGE, RequestKey.LIMIT,
-                RequestKey.KEYWORD };
-        String[] values = { CVApplication.cvApplication.getUserid(), String.valueOf(type),
-                String.valueOf(page), String.valueOf(LIMIT), keyword };
+        String[] keys = { RequestKey.USER_ID, RequestKey.TYPE, RequestKey.PAGE,
+                RequestKey.LIMIT, RequestKey.KEYWORD };
+        String[] values = { CVApplication.cvApplication.getUserid(),
+                String.valueOf(type), String.valueOf(page),
+                String.valueOf(LIMIT), keyword };
         return WebService.post(Url.GET_VISIT_INFO, keys, values, listener,
                 new GetVisitInfoParser(listener));
     }
 
     public static Cancelable submitContent(String ids, String serviceId,
             final RequestListener<SubmitResult> listener) {
-        String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID, RequestKey.CONTENT_IDS };
-        String[] values = { CVApplication.cvApplication.getUserid(), serviceId, ids };
-        return WebService.post(Url.SUBMIT_SERVICE_CONTENT, keys, values, listener,
-                new SubmitParser(listener));
+        String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID,
+                RequestKey.CONTENT_IDS };
+        String[] values = { CVApplication.cvApplication.getUserid(), serviceId,
+                ids };
+        return WebService.post(Url.SUBMIT_SERVICE_CONTENT, keys, values,
+                listener, new SubmitParser(listener));
     }
 
     public static Cancelable codeSign(String serviceId, String code,
-    		String flag, String lat, String lon, String city,
+            String flag, String lat, String lon, String city,
             final RequestListener<SubmitResult> listener) {
-        String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID, RequestKey.CODE,
-        		RequestKey.FLAG, RequestKey.LAT, RequestKey.LNG, RequestKey.CITY };
-        String[] values = { CVApplication.cvApplication.getUserid(), serviceId, code,
-        		flag, lat, lon, city };
+        String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID,
+                RequestKey.CODE, RequestKey.FLAG, RequestKey.LAT,
+                RequestKey.LNG, RequestKey.CITY };
+        String[] values = { CVApplication.cvApplication.getUserid(), serviceId,
+                code, flag, lat, lon, city };
         return WebService.post(Url.CODE_SIGN, keys, values, listener,
                 new SubmitParser(listener));
     }
 
     public static Cancelable praise(String serviceId, String code,
-    		final RequestListener<SubmitResult> listener) {
-        String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID, RequestKey.CODE };
-        String[] values = { CVApplication.cvApplication.getUserid(), serviceId, code };
+            final RequestListener<SubmitResult> listener) {
+        String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID,
+                RequestKey.CODE };
+        String[] values = { CVApplication.cvApplication.getUserid(), serviceId,
+                code };
         return WebService.post(Url.PRAISE, keys, values, listener,
                 new SubmitParser(listener));
     }
@@ -224,12 +233,12 @@ public class ServiceManager {
             final RequestListener<SubmitResult> listener) {
         String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID };
         String[] values = { CVApplication.cvApplication.getUserid(), serviceId };
-        RequestParams params = CommonUtils.createParams(keys, values, WebService.URL + Url.SUBMIT_SERVICE_RESULT);
+        RequestParams params = CommonUtils.createParams(keys, values,
+                WebService.URL + Url.SUBMIT_SERVICE_RESULT);
         params.setMultipart(true);
         for (File file : files) {
             params.addBodyParameter(RequestKey.FILE, file);
         }
-        return WebService.upload(params, listener,
-                new SubmitParser(listener));
+        return WebService.upload(params, listener, new SubmitParser(listener));
     }
 }

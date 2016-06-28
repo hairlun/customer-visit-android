@@ -18,100 +18,91 @@ import android.view.SurfaceHolder;
  * preview-sized images, which are used for both preview and decoding.
  * 
  */
-public final class CameraManager
-{
+public final class CameraManager {
     private static final String TAG = CameraManager.class.getSimpleName();
-    
+
     private static final int MIN_FRAME_WIDTH = 240;
-    
+
     private static final int MIN_FRAME_HEIGHT = 240;
-    
+
     private static final int MAX_FRAME_WIDTH = 360;
-    
+
     private static final int MAX_FRAME_HEIGHT = 360;
-    
+
     private static CameraManager cameraManager;
-    
+
     static final int SDK_INT; // Later we can use Build.VERSION.SDK_INT
-    static
-    {
+    static {
         int sdkInt;
-        try
-        {
+        try {
             sdkInt = Integer.parseInt(Build.VERSION.SDK);
-        }
-        catch (NumberFormatException nfe)
-        {
+        } catch (NumberFormatException nfe) {
             // Just to be safe
             sdkInt = 10000;
         }
         SDK_INT = sdkInt;
     }
-    
+
     private final Context context;
-    
+
     private final CameraConfigurationManager configManager;
-    
+
     private Camera camera;
-    
+
     private Rect framingRect;
-    
+
     private Rect framingRectInPreview;
-    
+
     private boolean initialized;
-    
+
     private boolean previewing;
-    
+
     private final boolean useOneShotPreviewCallback;
-    
+
     /**
      * 手机的屏幕密度
      */
     private static float density;
-    
+
     /**
      * Preview frames are delivered here, which we pass on to the registered
      * handler. Make sure to clear the handler so it will only receive one
      * message.
      */
     private final PreviewCallback previewCallback;
-    
+
     /**
      * Autofocus callbacks arrive here, and are dispatched to the Handler which
      * requested them.
      */
     private final AutoFocusCallback autoFocusCallback;
-    
+
     /**
      * Initializes this static object with the Context of the calling Activity.
      * 
      * @param context
      *            The Activity which wants to use the camera.
      */
-    public static void init(Context context)
-    {
-        if (cameraManager == null)
-        {
+    public static void init(Context context) {
+        if (cameraManager == null) {
             cameraManager = new CameraManager(context);
         }
     }
-    
+
     /**
      * Gets the CameraManager singleton instance.
      * 
      * @return A reference to the CameraManager singleton.
      */
-    public static CameraManager get()
-    {
+    public static CameraManager get() {
         return cameraManager;
     }
-    
-    private CameraManager(Context context)
-    {
-        
+
+    private CameraManager(Context context) {
+
         this.context = context;
         this.configManager = new CameraConfigurationManager(context);
-        
+
         // Camera.setOneShotPreviewCallback() has a race condition in Cupcake,
         // so we use the older
         // Camera.setPreviewCallback() on 1.5 and earlier. For Donut and later,
@@ -125,13 +116,14 @@ public final class CameraManager
         useOneShotPreviewCallback = Integer.parseInt(Build.VERSION.SDK) > 3; // 3
                                                                              // =
                                                                              // Cupcake
-        
-        previewCallback = new PreviewCallback(configManager, useOneShotPreviewCallback);
+
+        previewCallback = new PreviewCallback(configManager,
+                useOneShotPreviewCallback);
         autoFocusCallback = new AutoFocusCallback();
-        
+
         density = context.getResources().getDisplayMetrics().density;
     }
-    
+
     /**
      * Opens the camera driver and initializes the hardware parameters.
      * 
@@ -141,25 +133,20 @@ public final class CameraManager
      * @throws IOException
      *             Indicates the camera driver failed to open.
      */
-    public void openDriver(SurfaceHolder holder)
-        throws IOException
-    {
-        if (camera == null)
-        {
+    public void openDriver(SurfaceHolder holder) throws IOException {
+        if (camera == null) {
             camera = Camera.open();
-            if (camera == null)
-            {
+            if (camera == null) {
                 throw new IOException();
             }
             camera.setPreviewDisplay(holder);
-            
-            if (!initialized)
-            {
+
+            if (!initialized) {
                 initialized = true;
                 configManager.initFromCameraParameters(camera);
             }
             configManager.setDesiredCameraParameters(camera);
-            
+
             // FIXME
             // SharedPreferences prefs =
             // PreferenceManager.getDefaultSharedPreferences(context);
@@ -171,41 +158,34 @@ public final class CameraManager
             FlashlightManager.enableFlashlight();
         }
     }
-    
+
     /**
      * Closes the camera driver if still in use.
      */
-    public void closeDriver()
-    {
-        if (camera != null)
-        {
+    public void closeDriver() {
+        if (camera != null) {
             FlashlightManager.disableFlashlight();
             camera.release();
             camera = null;
         }
     }
-    
+
     /**
      * Asks the camera hardware to begin drawing preview frames to the screen.
      */
-    public void startPreview()
-    {
-        if (camera != null && !previewing)
-        {
+    public void startPreview() {
+        if (camera != null && !previewing) {
             camera.startPreview();
             previewing = true;
         }
     }
-    
+
     /**
      * Tells the camera to stop drawing preview frames.
      */
-    public void stopPreview()
-    {
-        if (camera != null && previewing)
-        {
-            if (!useOneShotPreviewCallback)
-            {
+    public void stopPreview() {
+        if (camera != null && previewing) {
+            if (!useOneShotPreviewCallback) {
                 camera.setPreviewCallback(null);
             }
             camera.stopPreview();
@@ -214,7 +194,7 @@ public final class CameraManager
             previewing = false;
         }
     }
-    
+
     /**
      * A single preview frame will be returned to the handler supplied. The data
      * will arrive as byte[] in the message.obj field, with width and height
@@ -225,22 +205,17 @@ public final class CameraManager
      * @param message
      *            The what field of the message to be sent.
      */
-    public void requestPreviewFrame(Handler handler, int message)
-    {
-        if (camera != null && previewing)
-        {
+    public void requestPreviewFrame(Handler handler, int message) {
+        if (camera != null && previewing) {
             previewCallback.setHandler(handler, message);
-            if (useOneShotPreviewCallback)
-            {
+            if (useOneShotPreviewCallback) {
                 camera.setOneShotPreviewCallback(previewCallback);
-            }
-            else
-            {
+            } else {
                 camera.setPreviewCallback(previewCallback);
             }
         }
     }
-    
+
     /**
      * Asks the camera hardware to perform an autofocus.
      * 
@@ -249,16 +224,14 @@ public final class CameraManager
      * @param message
      *            The message to deliver.
      */
-    public void requestAutoFocus(Handler handler, int message)
-    {
-        if (camera != null && previewing)
-        {
+    public void requestAutoFocus(Handler handler, int message) {
+        if (camera != null && previewing) {
             autoFocusCallback.setHandler(handler, message);
             // Log.d(TAG, "Requesting auto-focus callback");
             camera.autoFocus(autoFocusCallback);
         }
     }
-    
+
     /**
      * Calculates the framing rect which the UI should draw to show the user
      * where to place the barcode. This target helps with alignment as well as
@@ -267,73 +240,61 @@ public final class CameraManager
      * 
      * @return The rectangle to draw on screen in window coordinates.
      */
-    public Rect getFramingRect()
-    {
+    public Rect getFramingRect() {
         Point screenResolution = configManager.getScreenResolution();
-        if (framingRect == null)
-        {
-            if (camera == null)
-            {
+        if (framingRect == null) {
+            if (camera == null) {
                 return null;
             }
-            
-            if (density == 1.0)
-            {
+
+            if (density == 1.0) {
                 int width = screenResolution.x * 1 / 2;
-                if (width < MIN_FRAME_WIDTH)
-                {
+                if (width < MIN_FRAME_WIDTH) {
                     width = MIN_FRAME_WIDTH;
-                }
-                else if (width > MAX_FRAME_WIDTH)
-                {
+                } else if (width > MAX_FRAME_WIDTH) {
                     width = MAX_FRAME_WIDTH;
                 }
                 int height = screenResolution.y * 1 / 2;
-                if (height < MIN_FRAME_HEIGHT)
-                {
+                if (height < MIN_FRAME_HEIGHT) {
                     height = MIN_FRAME_HEIGHT;
-                }
-                else if (height > MAX_FRAME_HEIGHT)
-                {
+                } else if (height > MAX_FRAME_HEIGHT) {
                     height = MAX_FRAME_HEIGHT;
                 }
                 int leftOffset = (screenResolution.x - width) / 2;
                 int topOffset = (screenResolution.y - height) / 2 - 20;
-                
-                //                Log.i("info", "密度:" + density);
-                framingRect = new Rect(leftOffset, topOffset, leftOffset + width, topOffset + width);
-            }
-            else
-            {
+
+                // Log.i("info", "密度:" + density);
+                framingRect = new Rect(leftOffset, topOffset, leftOffset
+                        + width, topOffset + width);
+            } else {
                 int width = screenResolution.x * 5 / 8;
-                //            if (width < MIN_FRAME_WIDTH) {
-                //                width = MIN_FRAME_WIDTH;
-                //            } else if (width > MAX_FRAME_WIDTH) {
-                //                width = MAX_FRAME_WIDTH;
-                //            }
-                //            int height = screenResolution.y * 3 / 4;
-                //            if (height < MIN_FRAME_HEIGHT) {
-                //                height = MIN_FRAME_HEIGHT;
-                //            } else if (height > MAX_FRAME_HEIGHT) {
-                //                height = MAX_FRAME_HEIGHT;
-                //            }
+                // if (width < MIN_FRAME_WIDTH) {
+                // width = MIN_FRAME_WIDTH;
+                // } else if (width > MAX_FRAME_WIDTH) {
+                // width = MAX_FRAME_WIDTH;
+                // }
+                // int height = screenResolution.y * 3 / 4;
+                // if (height < MIN_FRAME_HEIGHT) {
+                // height = MIN_FRAME_HEIGHT;
+                // } else if (height > MAX_FRAME_HEIGHT) {
+                // height = MAX_FRAME_HEIGHT;
+                // }
                 int leftOffset = (screenResolution.x - width) / 2;
                 int topOffset = (screenResolution.y - width) / 2 - 120;
-                framingRect = new Rect(leftOffset, topOffset, leftOffset + width, topOffset + width);
+                framingRect = new Rect(leftOffset, topOffset, leftOffset
+                        + width, topOffset + width);
             }
-            
+
         }
         return framingRect;
     }
-    
+
     /**
      * Like {@link #getFramingRect} but coordinates are in terms of the preview
      * frame, not UI / screen.
      */
-    public Rect getFramingRectInPreview()
-    {
-        if (framingRectInPreview == null)
-        {
+    public Rect getFramingRectInPreview() {
+        if (framingRectInPreview == null) {
             Rect rect = new Rect(getFramingRect());
             Point cameraResolution = configManager.getCameraResolution();
             Point screenResolution = configManager.getScreenResolution();
@@ -352,7 +313,7 @@ public final class CameraManager
         }
         return framingRectInPreview;
     }
-    
+
     /**
      * Converts the result points from still resolution coordinates to screen
      * coordinates.
@@ -384,59 +345,52 @@ public final class CameraManager
      *            The height of the image.
      * @return A PlanarYUVLuminanceSource instance.
      */
-    public PlanarYUVLuminanceSource buildLuminanceSource(byte[] data, int width, int height)
-    {
+    public PlanarYUVLuminanceSource buildLuminanceSource(byte[] data,
+            int width, int height) {
         Rect rect = getFramingRectInPreview();
         int previewFormat = configManager.getPreviewFormat();
         String previewFormatString = configManager.getPreviewFormatString();
-        switch (previewFormat)
-        {
-            // This is the standard Android format which all devices are REQUIRED to
-            // support.
-            // In theory, it's the only one we should ever care about.
-            case PixelFormat.YCbCr_420_SP:
-                // This format has never been seen in the wild, but is compatible as
-                // we only care
-                // about the Y channel, so allow it.
-            case PixelFormat.YCbCr_422_SP:
-                return new PlanarYUVLuminanceSource(data, width, height, rect.left, rect.top, rect.width(),
-                    rect.height());
-            default:
-                // The Samsung Moment incorrectly uses this variant instead of the
-                // 'sp' version.
-                // Fortunately, it too has all the Y data up front, so we can read
-                // it.
-                if ("yuv420p".equals(previewFormatString))
-                {
-                    return new PlanarYUVLuminanceSource(data, width, height, rect.left, rect.top, rect.width(),
-                        rect.height());
-                }
+        switch (previewFormat) {
+        // This is the standard Android format which all devices are REQUIRED to
+        // support.
+        // In theory, it's the only one we should ever care about.
+        case PixelFormat.YCbCr_420_SP:
+            // This format has never been seen in the wild, but is compatible as
+            // we only care
+            // about the Y channel, so allow it.
+        case PixelFormat.YCbCr_422_SP:
+            return new PlanarYUVLuminanceSource(data, width, height, rect.left,
+                    rect.top, rect.width(), rect.height());
+        default:
+            // The Samsung Moment incorrectly uses this variant instead of the
+            // 'sp' version.
+            // Fortunately, it too has all the Y data up front, so we can read
+            // it.
+            if ("yuv420p".equals(previewFormatString)) {
+                return new PlanarYUVLuminanceSource(data, width, height,
+                        rect.left, rect.top, rect.width(), rect.height());
+            }
         }
-        throw new IllegalArgumentException("Unsupported picture format: " + previewFormat + '/' + previewFormatString);
+        throw new IllegalArgumentException("Unsupported picture format: "
+                + previewFormat + '/' + previewFormatString);
     }
-    
-    public Context getContext()
-    {
+
+    public Context getContext() {
         return context;
     }
-    
-    public void openLight(boolean islight)
-    {
-        if (camera != null)
-        {
-            if (!islight)
-            {
+
+    public void openLight(boolean islight) {
+        if (camera != null) {
+            if (!islight) {
                 Parameters mParameters = camera.getParameters();
                 mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
                 camera.setParameters(mParameters);
-            }
-            else
-            {
+            } else {
                 Parameters mParameters = camera.getParameters();
                 mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                 camera.setParameters(mParameters);
             }
         }
     }
-    
+
 }

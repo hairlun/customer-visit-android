@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author Administrator
- *
+ * 
  */
 public class ServiceContent implements Serializable {
 
@@ -21,21 +21,21 @@ public class ServiceContent implements Serializable {
     private static final long serialVersionUID = 6453699292599890716L;
 
     private String serviceId;
-    
+
     private String title;
-    
+
     private String createTime;
 
     private String customerName;
-    
+
     private int type;
-    
+
     private int codeSignFlag;
-    
+
     private int contentFlag;
-    
+
     private int praiseFlag;
-    
+
     private List<ContentItem> contents;
 
     public String getServiceId() {

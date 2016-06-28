@@ -13,7 +13,7 @@ import android.widget.TextView;
 /**
  * 正在加载的对话框
  * 
- * @author huangzhongwen
+ * @author zhoushujie
  * 
  */
 public class LoadingDialog extends AbsCustomDialog implements

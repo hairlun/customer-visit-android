@@ -38,7 +38,7 @@ import com.jade.customervisit.util.ToastUtil;
 /**
  * 应用升级管理器
  * 
- * @author huangzhongwen
+ * @author zhoushujie
  * 
  */
 public class UpgradeManager {
@@ -78,14 +78,14 @@ public class UpgradeManager {
     /**
      * 升级相关的URL
      * 
-     * @author huangzhongwen
+     * @author zhoushujie
      * 
      */
     public interface Url {
-        
+
         /** 更新地址 */
         String GET_VERSION_INFO = "/getVersionInfo.do?";
-    	
+
     }
 
     /**
@@ -141,8 +141,7 @@ public class UpgradeManager {
             RequestListener<GetSysInfoResult> listener) {
         String[] keys = {};
         String[] values = {};
-        return WebService.post(Url.GET_VERSION_INFO,
-                keys, values, listener,
+        return WebService.post(Url.GET_VERSION_INFO, keys, values, listener,
                 new GetSysInfoParser(listener));
     }
 
@@ -155,22 +154,20 @@ public class UpgradeManager {
     public static void showUpgradeDialog(final Context context,
             final SysInfo sysInfo) {
         AlertDialog.Builder builder = new Builder(context);
-        builder.setTitle("更新").setMessage("应用有更新，是否下载？").setPositiveButton("确定", new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                downloadApk(context, sysInfo);
-            }
-        }).setNegativeButton("取消", new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                
-            }
-        }).create().show();
-        
+        builder.setTitle("更新").setMessage("应用有更新，是否下载？")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        downloadApk(context, sysInfo);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).create().show();
+
     }
 
     /**
@@ -187,9 +184,10 @@ public class UpgradeManager {
         final LoadingDialog dialog = new LoadingDialog(context);
         final File target = new File(String.format(APK_DIR,
                 sysInfo.getVersionName()));
-        RequestParams params = CommonUtils.createParams(null, null, sysInfo.getApkLink());
-        WebService.download(params,
-                target.getAbsolutePath(), false, new RequestListener<File>() {
+        RequestParams params = CommonUtils.createParams(null, null,
+                sysInfo.getApkLink());
+        WebService.download(params, target.getAbsolutePath(), false,
+                new RequestListener<File>() {
                     @Override
                     public void onStart() {
                         dialog.show("正在下载");

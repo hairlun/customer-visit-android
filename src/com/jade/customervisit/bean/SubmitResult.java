@@ -8,9 +8,9 @@ public class SubmitResult extends RequestResult {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 682702008721444566L;
+    private static final long serialVersionUID = 682702008721444566L;
 
-	/**
+    /**
      * 无参构造
      */
     public SubmitResult() {
@@ -27,11 +27,11 @@ public class SubmitResult extends RequestResult {
         super(retcode, retinfo);
     }
 
-	@Override
-	public String toString() {
-		return "SubmitContentResult [isSuccesses()=" + isSuccesses()
-				+ ", getRetcode()=" + getRetcode() + ", getRetinfo()="
-				+ getRetinfo() + ", getResponse()=" + getResponse() + "]";
-	}
+    @Override
+    public String toString() {
+        return "SubmitContentResult [isSuccesses()=" + isSuccesses()
+                + ", getRetcode()=" + getRetcode() + ", getRetinfo()="
+                + getRetinfo() + ", getResponse()=" + getResponse() + "]";
+    }
 
 }

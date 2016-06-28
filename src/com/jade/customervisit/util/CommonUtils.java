@@ -346,7 +346,7 @@ public class CommonUtils {
     public static boolean isTablet(Context context) {
         return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
-    
+
     /**
      * 判断字符串是否为null或者0长度，字符串在判断长度时，先去除前后的空格,空或者0长度返回true,否则返回false
      * 
@@ -355,11 +355,10 @@ public class CommonUtils {
      * 
      * @return boolean
      */
-    public static boolean isNullOrZeroLenght(String str)
-    {
+    public static boolean isNullOrZeroLenght(String str) {
         return (null == str || "".equals(str.trim())) ? true : false;
     }
-    
+
     /**
      * 判断字符串是否为null或者0长度，字符串在判断长度时，先去除前后的空格,空或者0长度返回false,否则返回true
      * 
@@ -368,8 +367,7 @@ public class CommonUtils {
      * 
      * @return boolean
      */
-    public static boolean isNotNullOrZeroLenght(String str)
-    {
+    public static boolean isNotNullOrZeroLenght(String str) {
         return !isNullOrZeroLenght(str);
     }
 
@@ -380,7 +378,8 @@ public class CommonUtils {
      * @param values
      * @return
      */
-    public static RequestParams createParams(String[] keys, String[] values, String url) {
+    public static RequestParams createParams(String[] keys, String[] values,
+            String url) {
         RequestParams params = new RequestParams(url);
         if (keys != null) {
             int len = keys.length;
@@ -399,7 +398,7 @@ public class CommonUtils {
      * @return
      */
     public static int dip2px(Context context, float dip) {
-    	final float scale = context.getResources().getDisplayMetrics().density;
+        final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dip * scale + 0.5f);
     }
 
@@ -411,7 +410,7 @@ public class CommonUtils {
      * @return
      */
     public static float px2dip(Context context, float pxVal) {
-    	final float scale = context.getResources().getDisplayMetrics().density;
+        final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxVal / scale + 0.5f);
     }
 
@@ -423,7 +422,7 @@ public class CommonUtils {
      * @return
      */
     public static int sp2px(Context context, float spVal) {
-    	final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (spVal * fontScale + 0.5f);
     }
 
@@ -435,7 +434,7 @@ public class CommonUtils {
      * @return
      */
     public static float px2sp(Context context, float pxVal) {
-    	final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxVal / fontScale + 0.5f);
     }
 }

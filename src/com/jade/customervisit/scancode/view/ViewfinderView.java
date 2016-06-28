@@ -25,131 +25,127 @@ import com.jade.customervisit.util.BitmapUtil;
  * animation and result points.
  * 
  */
-public final class ViewfinderView extends View
-{
+public final class ViewfinderView extends View {
     /**
      * 刷新界面的时间
      */
     private static final long ANIMATION_DELAY = 10L;
-    
+
     private static final int OPAQUE = 0xFF;
-    
+
     /**
      * 四个绿色边角对应的长度
      */
     private int ScreenRate;
-    
+
     /**
      * 四个绿色边角对应的宽度
      */
     private static final int CORNER_WIDTH = 4;
-    
+
     /**
      * 扫描框中的中间线的宽度
      */
     private static final int MIDDLE_LINE_WIDTH = 6;
-    
+
     /**
      * 扫描框中的中间线的与扫描框左右的间隙
      */
     private static final int MIDDLE_LINE_PADDING = 0;
-    
+
     /**
      * 中间那条线每次刷新移动的距离
      */
     private static final int SPEEN_DISTANCE = 5;
-    
+
     /**
      * 绿色框距离扫描框的距离
      */
     private static final int GREEN_DIS = 20;
-    
+
     /**
      * 白色底背景距离扫描框的距离
      */
     private static final int WHITE_DIS = 50;
-    
+
     /**
      * 扫描框的灰色边框宽度
      */
     private static final int GRAY_DIS = 4;
-    
+
     /**
      * 手机的屏幕密度
      */
     private static float density;
-    
+
     /**
      * 字体大小
      */
     private static final int TEXT_SIZE = 16;
-    
+
     /**
      * 字体距离扫描框下面的距离
      */
     private int text_padding_top = 120;
-    
+
     /**
      * 画笔对象的引用
      */
     private Paint paint;
-    
+
     /**
      * 中间滑动线的最顶端位置
      */
     private int slideTop;
-    
+
     /**
      * 中间滑动线的最底端位置
      */
     private int slideBottom;
-    
+
     /**
      * 将扫描的二维码拍下来，这里没有这个功能，暂时不考虑
      */
     private Bitmap resultBitmap;
-    
+
     private final int maskColor;
-    
+
     private final int resultColor;
-    
+
     private final int resultColorCorner;
-    
+
     private final int resultColorAnother;
-    
+
     private final int resultColorGray;
-    
+
     private final int resultPointColor;
-    
+
     private Collection<ResultPoint> possibleResultPoints;
-    
+
     private Collection<ResultPoint> lastPossibleResultPoints;
-    
+
     boolean isFirst;
-    
+
     /**
      * 中间的扫码线
      */
     private Bitmap mBitmap;
-    
-    public ViewfinderView(Context context, AttributeSet attrs)
-    {
+
+    public ViewfinderView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        
+
         density = context.getResources().getDisplayMetrics().density;
-        
-        if (density == 1.0)
-        {
+
+        if (density == 1.0) {
             text_padding_top = 80;
-        }
-        else
-        {
+        } else {
             text_padding_top = 120;
         }
-        mBitmap = BitmapUtil.ReadBitmapById(context, R.drawable.saoma_line_center_android);
+        mBitmap = BitmapUtil.ReadBitmapById(context,
+                R.drawable.saoma_line_center_android);
         // 将像素转换成dp
-        ScreenRate = (int)(24 * density);
-        
+        ScreenRate = (int) (24 * density);
+
         paint = new Paint();
         Resources resources = getResources();
         maskColor = resources.getColor(R.color.viewfinder_mask);
@@ -157,169 +153,168 @@ public final class ViewfinderView extends View
         resultColorAnother = resources.getColor(R.color.result_view_another);
         resultColorCorner = resources.getColor(R.color.result_view_four_corner);
         resultColorGray = resources.getColor(R.color.result_view_gray);
-        
+
         resultPointColor = resources.getColor(R.color.possible_result_points);
         possibleResultPoints = new HashSet<ResultPoint>(5);
     }
-    
+
     @Override
-    public void onDraw(Canvas canvas)
-    {
+    public void onDraw(Canvas canvas) {
         // 中间的扫描框，你要修改扫描框的大小，去CameraManager里面修改
         Rect frame = CameraManager.get().getFramingRect();
-        if (frame == null)
-        {
+        if (frame == null) {
             return;
         }
-        
+
         // 初始化中间线滑动的最上边和最下边
-        if (!isFirst)
-        {
+        if (!isFirst) {
             isFirst = true;
             slideTop = frame.top;
             slideBottom = frame.bottom;
         }
-        
+
         // 获取屏幕的宽和高
         int width = canvas.getWidth();
         int height = canvas.getHeight();
-        
+
         paint.setColor(resultBitmap != null ? resultColor : maskColor);
-        
+
         // 画出扫描框外面的阴影部分，共四个部分，扫描框的上面到屏幕上面，扫描框的下面到屏幕下面
         // 扫描框的左边面到屏幕左边，扫描框的右边到屏幕右边
         canvas.drawRect(0, 0, width, frame.top, paint);
         canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, paint);
-        canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1, paint);
+        canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1,
+                paint);
         canvas.drawRect(0, frame.bottom + 1, width, height, paint);
-        
-        //        paint.setColor(resultBitmap != null ? resultColor : resultColorAnother);
-        //        // 画出白色底背景
-        //        canvas.drawRect(frame.left - WHITE_DIS, frame.top - WHITE_DIS, frame.right + WHITE_DIS, frame.top, paint);
-        //        canvas.drawRect(frame.left - WHITE_DIS, frame.top, frame.left, frame.bottom, paint);
-        //        canvas.drawRect(frame.right, frame.top, frame.right + WHITE_DIS, frame.bottom, paint);
-        //        canvas.drawRect(frame.left - WHITE_DIS, frame.bottom, frame.right + WHITE_DIS, frame.bottom + WHITE_DIS, paint);
-        
+
+        // paint.setColor(resultBitmap != null ? resultColor :
+        // resultColorAnother);
+        // // 画出白色底背景
+        // canvas.drawRect(frame.left - WHITE_DIS, frame.top - WHITE_DIS,
+        // frame.right + WHITE_DIS, frame.top, paint);
+        // canvas.drawRect(frame.left - WHITE_DIS, frame.top, frame.left,
+        // frame.bottom, paint);
+        // canvas.drawRect(frame.right, frame.top, frame.right + WHITE_DIS,
+        // frame.bottom, paint);
+        // canvas.drawRect(frame.left - WHITE_DIS, frame.bottom, frame.right +
+        // WHITE_DIS, frame.bottom + WHITE_DIS, paint);
+
         paint.setColor(resultBitmap != null ? resultColor : resultColorGray);
         // 画出灰色边框
-        canvas.drawRect(frame.left - GRAY_DIS, frame.top - GRAY_DIS, frame.right + GRAY_DIS, frame.top, paint);
-        canvas.drawRect(frame.left - GRAY_DIS, frame.top, frame.left, frame.bottom, paint);
-        canvas.drawRect(frame.right, frame.top, frame.right + GRAY_DIS, frame.bottom, paint);
-        canvas.drawRect(frame.left - GRAY_DIS, frame.bottom, frame.right + GRAY_DIS, frame.bottom + GRAY_DIS, paint);
-        
-        if (resultBitmap != null)
-        {
+        canvas.drawRect(frame.left - GRAY_DIS, frame.top - GRAY_DIS,
+                frame.right + GRAY_DIS, frame.top, paint);
+        canvas.drawRect(frame.left - GRAY_DIS, frame.top, frame.left,
+                frame.bottom, paint);
+        canvas.drawRect(frame.right, frame.top, frame.right + GRAY_DIS,
+                frame.bottom, paint);
+        canvas.drawRect(frame.left - GRAY_DIS, frame.bottom, frame.right
+                + GRAY_DIS, frame.bottom + GRAY_DIS, paint);
+
+        if (resultBitmap != null) {
             // Draw the opaque result bitmap over the scanning rectangle
             paint.setAlpha(OPAQUE);
             canvas.drawBitmap(resultBitmap, frame.left, frame.top, paint);
-        }
-        else
-        {
-            
+        } else {
+
             // 画扫描框边上的角，总共8个部分
             paint.setColor(resultColorCorner);
-            canvas.drawRect(frame.left - GREEN_DIS,
-                frame.top - GREEN_DIS,
-                frame.left + ScreenRate - GREEN_DIS,
-                frame.top + CORNER_WIDTH - GREEN_DIS,
-                paint);
-            canvas.drawRect(frame.left - GREEN_DIS,
-                frame.top - GREEN_DIS,
-                frame.left + CORNER_WIDTH - GREEN_DIS,
-                frame.top + ScreenRate - GREEN_DIS,
-                paint);
-            canvas.drawRect(frame.right - ScreenRate + GREEN_DIS,
-                frame.top - GREEN_DIS,
-                frame.right + GREEN_DIS,
-                frame.top + CORNER_WIDTH - GREEN_DIS,
-                paint);
+            canvas.drawRect(frame.left - GREEN_DIS, frame.top - GREEN_DIS,
+                    frame.left + ScreenRate - GREEN_DIS, frame.top
+                            + CORNER_WIDTH - GREEN_DIS, paint);
+            canvas.drawRect(frame.left - GREEN_DIS, frame.top - GREEN_DIS,
+                    frame.left + CORNER_WIDTH - GREEN_DIS, frame.top
+                            + ScreenRate - GREEN_DIS, paint);
+            canvas.drawRect(frame.right - ScreenRate + GREEN_DIS, frame.top
+                    - GREEN_DIS, frame.right + GREEN_DIS, frame.top
+                    + CORNER_WIDTH - GREEN_DIS, paint);
+            canvas.drawRect(frame.right - CORNER_WIDTH + GREEN_DIS, frame.top
+                    - GREEN_DIS, frame.right + GREEN_DIS, frame.top
+                    + ScreenRate - GREEN_DIS, paint);
+            canvas.drawRect(frame.left - GREEN_DIS, frame.bottom - CORNER_WIDTH
+                    + GREEN_DIS, frame.left + ScreenRate - GREEN_DIS,
+                    frame.bottom + GREEN_DIS, paint);
+            canvas.drawRect(frame.left - GREEN_DIS, frame.bottom - ScreenRate
+                    + GREEN_DIS, frame.left + CORNER_WIDTH - GREEN_DIS,
+                    frame.bottom + GREEN_DIS, paint);
+            canvas.drawRect(frame.right - ScreenRate + GREEN_DIS, frame.bottom
+                    - CORNER_WIDTH + GREEN_DIS, frame.right + GREEN_DIS,
+                    frame.bottom + GREEN_DIS, paint);
             canvas.drawRect(frame.right - CORNER_WIDTH + GREEN_DIS,
-                frame.top - GREEN_DIS,
-                frame.right + GREEN_DIS,
-                frame.top + ScreenRate - GREEN_DIS,
-                paint);
-            canvas.drawRect(frame.left - GREEN_DIS, frame.bottom - CORNER_WIDTH + GREEN_DIS, frame.left + ScreenRate
-                - GREEN_DIS, frame.bottom + GREEN_DIS, paint);
-            canvas.drawRect(frame.left - GREEN_DIS, frame.bottom - ScreenRate + GREEN_DIS, frame.left + CORNER_WIDTH
-                - GREEN_DIS, frame.bottom + GREEN_DIS, paint);
-            canvas.drawRect(frame.right - ScreenRate + GREEN_DIS, frame.bottom - CORNER_WIDTH + GREEN_DIS, frame.right
-                + GREEN_DIS, frame.bottom + GREEN_DIS, paint);
-            canvas.drawRect(frame.right - CORNER_WIDTH + GREEN_DIS, frame.bottom - ScreenRate + GREEN_DIS, frame.right
-                + GREEN_DIS, frame.bottom + GREEN_DIS, paint);
-            
+                    frame.bottom - ScreenRate + GREEN_DIS, frame.right
+                            + GREEN_DIS, frame.bottom + GREEN_DIS, paint);
+
             // 绘制中间的线,每次刷新界面，中间的线往下移动SPEEN_DISTANCE
             slideTop += SPEEN_DISTANCE;
-            if (slideTop >= frame.bottom)
-            {
+            if (slideTop >= frame.bottom) {
                 slideTop = frame.top;
             }
-            //            canvas.drawRect(frame.left + MIDDLE_LINE_PADDING, slideTop - MIDDLE_LINE_WIDTH / 2, frame.right
-            //                - MIDDLE_LINE_PADDING, slideTop + MIDDLE_LINE_WIDTH / 2, paint);
-            
+            // canvas.drawRect(frame.left + MIDDLE_LINE_PADDING, slideTop -
+            // MIDDLE_LINE_WIDTH / 2, frame.right
+            // - MIDDLE_LINE_PADDING, slideTop + MIDDLE_LINE_WIDTH / 2, paint);
+
             int mLen = (frame.left + MIDDLE_LINE_PADDING) * 2;
-            Bitmap nBitmap = BitmapUtil.getBitmapScale(mBitmap, width - mLen, 10);
-            canvas.drawBitmap(nBitmap, frame.left + MIDDLE_LINE_PADDING, slideTop - MIDDLE_LINE_WIDTH / 2, paint);
-            
+            Bitmap nBitmap = BitmapUtil.getBitmapScale(mBitmap, width - mLen,
+                    10);
+            canvas.drawBitmap(nBitmap, frame.left + MIDDLE_LINE_PADDING,
+                    slideTop - MIDDLE_LINE_WIDTH / 2, paint);
+
             String text = getResources().getString(R.string.scan_text);
-            
+
             // 画扫描框下面的字
             paint.setColor(Color.WHITE);
             paint.setTextSize(TEXT_SIZE * density);
             paint.setAlpha(0xFFFFFF);
             paint.setTypeface(Typeface.create("System", Typeface.BOLD));
-            
+
             float baseX = paint.measureText(text);
-            float baseY = frame.bottom + (float)text_padding_top * density;
-            
-            //            // 画背景图片
-            //            Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-            //            paint = new Paint();
-            //            canvas.drawBitmap(bmp,
-            //                (width - bmp.getWidth()) / 2,
-            //                baseY - bmp.getHeight() / 2 - TEXT_SIZE * density / 2,
-            //                paint);
-            
+            float baseY = frame.bottom + (float) text_padding_top * density;
+
+            // // 画背景图片
+            // Bitmap bmp = BitmapFactory.decodeResource(getResources(),
+            // R.drawable.ic_launcher);
+            // paint = new Paint();
+            // canvas.drawBitmap(bmp,
+            // (width - bmp.getWidth()) / 2,
+            // baseY - bmp.getHeight() / 2 - TEXT_SIZE * density / 2,
+            // paint);
+
             canvas.drawText(text, (width - baseX) / 2, baseY, paint);
-            
+
             Collection<ResultPoint> currentPossible = possibleResultPoints;
             Collection<ResultPoint> currentLast = lastPossibleResultPoints;
-            if (currentPossible.isEmpty())
-            {
+            if (currentPossible.isEmpty()) {
                 lastPossibleResultPoints = null;
-            }
-            else
-            {
+            } else {
                 possibleResultPoints = new HashSet<ResultPoint>(5);
                 lastPossibleResultPoints = currentPossible;
                 paint.setAlpha(OPAQUE);
                 paint.setColor(resultPointColor);
-                for (ResultPoint point : currentPossible)
-                {
-                    canvas.drawCircle(frame.left + point.getX(), frame.top + point.getY(), 6.0f, paint);
+                for (ResultPoint point : currentPossible) {
+                    canvas.drawCircle(frame.left + point.getX(), frame.top
+                            + point.getY(), 6.0f, paint);
                 }
             }
-            if (currentLast != null)
-            {
+            if (currentLast != null) {
                 paint.setAlpha(OPAQUE / 2);
                 paint.setColor(resultPointColor);
-                for (ResultPoint point : currentLast)
-                {
-                    canvas.drawCircle(frame.left + point.getX(), frame.top + point.getY(), 3.0f, paint);
+                for (ResultPoint point : currentLast) {
+                    canvas.drawCircle(frame.left + point.getX(), frame.top
+                            + point.getY(), 3.0f, paint);
                 }
             }
-            
+
             // 只刷新扫描框的内容，其他地方不刷新
-            postInvalidateDelayed(ANIMATION_DELAY, frame.left, frame.top, frame.right, frame.bottom);
-            
+            postInvalidateDelayed(ANIMATION_DELAY, frame.left, frame.top,
+                    frame.right, frame.bottom);
+
         }
     }
-    
-    public void drawViewfinder()
-    {
+
+    public void drawViewfinder() {
         resultBitmap = null;
         invalidate();
     }
-    
+
     /**
      * Draw a bitmap with the result points highlighted instead of the live
      * scanning display.
@@ -327,15 +322,13 @@ public final class ViewfinderView extends View
      * @param barcode
      *            An image of the decoded barcode.
      */
-    public void drawResultBitmap(Bitmap barcode)
-    {
+    public void drawResultBitmap(Bitmap barcode) {
         resultBitmap = barcode;
         invalidate();
     }
-    
-    public void addPossibleResultPoint(ResultPoint point)
-    {
+
+    public void addPossibleResultPoint(ResultPoint point) {
         possibleResultPoints.add(point);
     }
-    
+
 }

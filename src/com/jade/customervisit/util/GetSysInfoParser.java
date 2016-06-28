@@ -11,7 +11,7 @@ import com.jade.customervisit.network.IAsyncListener;
 /**
  * 获取系统信息结果解析器
  * 
- * @author huangzhongwen 2014-8-11 下午5:24:21
+ * @author zhoushujie 2014-8-11 下午5:24:21
  */
 public class GetSysInfoParser extends AbsBaseParser<GetSysInfoResult> {
 
@@ -42,7 +42,8 @@ public class GetSysInfoParser extends AbsBaseParser<GetSysInfoResult> {
                 result = new GetSysInfoResult(retcode, retinfo);
 
                 if (result.isSuccesses()) {
-                    String versionName = json.optString(ResponseKey.VERSION_NAME);
+                    String versionName = json
+                            .optString(ResponseKey.VERSION_NAME);
                     int versionCode = json.optInt(ResponseKey.VERSION_CODE);
                     String apkLink = json.optString(ResponseKey.APK_LINK);
                     result.getSysInfo().setVersionName(versionName);

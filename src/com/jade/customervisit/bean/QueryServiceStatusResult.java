@@ -2,67 +2,67 @@ package com.jade.customervisit.bean;
 
 public class QueryServiceStatusResult extends RequestResult {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 3998183177416085950L;
-	
-	int codeSignFlag;
-	
-	int codeExitFlag;
-	
-	int contentFlag;
-	
-	int takePhotoFlag;
-	
-	int praiseFlag;
+    private static final long serialVersionUID = 3998183177416085950L;
 
-	public QueryServiceStatusResult() {
-		super();
-	}
+    int codeSignFlag;
 
-	public QueryServiceStatusResult(String retcode, String retinfo) {
-		super(retcode, retinfo);
-	}
+    int codeExitFlag;
 
-	public int getCodeSignFlag() {
-		return codeSignFlag;
-	}
+    int contentFlag;
 
-	public void setCodeSignFlag(int codeSignFlag) {
-		this.codeSignFlag = codeSignFlag;
-	}
+    int takePhotoFlag;
 
-	public int getContentFlag() {
-		return contentFlag;
-	}
+    int praiseFlag;
 
-	public void setContentFlag(int contentFlag) {
-		this.contentFlag = contentFlag;
-	}
+    public QueryServiceStatusResult() {
+        super();
+    }
 
-	public int getPraiseFlag() {
-		return praiseFlag;
-	}
+    public QueryServiceStatusResult(String retcode, String retinfo) {
+        super(retcode, retinfo);
+    }
 
-	public void setPraiseFlag(int praiseFlag) {
-		this.praiseFlag = praiseFlag;
-	}
+    public int getCodeSignFlag() {
+        return codeSignFlag;
+    }
 
-	public int getCodeExitFlag() {
-		return codeExitFlag;
-	}
+    public void setCodeSignFlag(int codeSignFlag) {
+        this.codeSignFlag = codeSignFlag;
+    }
 
-	public void setCodeExitFlag(int codeExitFlag) {
-		this.codeExitFlag = codeExitFlag;
-	}
+    public int getContentFlag() {
+        return contentFlag;
+    }
 
-	public int getTakePhotoFlag() {
-		return takePhotoFlag;
-	}
+    public void setContentFlag(int contentFlag) {
+        this.contentFlag = contentFlag;
+    }
 
-	public void setTakePhotoFlag(int takePhotoFlag) {
-		this.takePhotoFlag = takePhotoFlag;
-	}
+    public int getPraiseFlag() {
+        return praiseFlag;
+    }
+
+    public void setPraiseFlag(int praiseFlag) {
+        this.praiseFlag = praiseFlag;
+    }
+
+    public int getCodeExitFlag() {
+        return codeExitFlag;
+    }
+
+    public void setCodeExitFlag(int codeExitFlag) {
+        this.codeExitFlag = codeExitFlag;
+    }
+
+    public int getTakePhotoFlag() {
+        return takePhotoFlag;
+    }
+
+    public void setTakePhotoFlag(int takePhotoFlag) {
+        this.takePhotoFlag = takePhotoFlag;
+    }
 
 }

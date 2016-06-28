@@ -5,12 +5,12 @@ package com.jade.customervisit.bean;
  */
 public class LoginResult extends RequestResult {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = -4832219653928648661L;
+    private static final long serialVersionUID = -4832219653928648661L;
 
-	/** userid */
+    /** userid */
     private String userid;
 
     /**

@@ -11,17 +11,17 @@ import java.util.List;
 
 /**
  * @author Administrator
- *
+ * 
  */
 public class GetVisitInfoResult extends RequestResult {
 
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = -6795077017134201811L;
+    private static final long serialVersionUID = -6795077017134201811L;
 
-	private List<VisitInfo> visitInfoList = new ArrayList<VisitInfo>();
-    
+    private List<VisitInfo> visitInfoList = new ArrayList<VisitInfo>();
+
     private int total;
 
     /**

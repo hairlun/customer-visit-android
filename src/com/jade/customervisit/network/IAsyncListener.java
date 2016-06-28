@@ -3,7 +3,7 @@ package com.jade.customervisit.network;
 /**
  * 异步监听接口
  * 
- * @author huangzhongwen
+ * @author zhoushujie
  * 
  */
 public interface IAsyncListener<T> {
@@ -41,7 +41,7 @@ public interface IAsyncListener<T> {
      * 请求停止
      */
     void onStopped();
-    
+
     /**
      * 请求停止
      */
@@ -65,7 +65,7 @@ public interface IAsyncListener<T> {
     /**
      * 结果解析器
      * 
-     * @author huangzhongwen
+     * @author zhoushujie
      * 
      * @param <T>
      */

@@ -21,7 +21,7 @@ import com.jade.customervisit.util.CommonUtils;
 /**
  * Web服务
  * 
- * @author huangzhongwen
+ * @author zhoushujie
  * 
  */
 public class WebService {
@@ -60,11 +60,12 @@ public class WebService {
      *            结果解析器
      * @return
      */
-    public static <T> Cancelable post(String url, String[] keys, String[] values,
-            final RequestListener<T> listener,
+    public static <T> Cancelable post(String url, String[] keys,
+            String[] values, final RequestListener<T> listener,
             final ResultParser<T> parser) {
         String requestUrl = URL + url;
-        RequestParams params = CommonUtils.createParams(keys, values, requestUrl);
+        RequestParams params = CommonUtils.createParams(keys, values,
+                requestUrl);
         return request(HttpMethod.POST, params, listener, parser);
     }
 
@@ -101,7 +102,8 @@ public class WebService {
             String[] values, final RequestListener<T> listener,
             final ResultParser<T> parser) {
         String requestUrl = URL + url;
-        RequestParams params = CommonUtils.createParams(keys, values, requestUrl);
+        RequestParams params = CommonUtils.createParams(keys, values,
+                requestUrl);
         return request(HttpMethod.GET, params, listener, parser);
     }
 
@@ -136,8 +138,9 @@ public class WebService {
      *            结果解析器
      * @return
      */
-    public static <T> Cancelable request(HttpMethod method, final RequestParams params,
-            final RequestListener<T> listener, final ResultParser<T> parser) {
+    public static <T> Cancelable request(HttpMethod method,
+            final RequestParams params, final RequestListener<T> listener,
+            final ResultParser<T> parser) {
         return HTTP.request(method, params, new ProgressCallback<String>() {
 
             @Override
@@ -275,9 +278,8 @@ public class WebService {
      *            结果解析器
      * @return
      */
-    public static <T> Cancelable upload(
-            final RequestParams params, final RequestListener<T> listener,
-            final ResultParser<T> parser) {
+    public static <T> Cancelable upload(final RequestParams params,
+            final RequestListener<T> listener, final ResultParser<T> parser) {
         return request(HttpMethod.POST, params, listener, parser);
     }
 
@@ -296,8 +298,9 @@ public class WebService {
      *            回调
      * @return
      */
-    public static Cancelable download(final RequestParams params, String target,
-            boolean autoRename, final RequestListener<File> listener) {
+    public static Cancelable download(final RequestParams params,
+            String target, boolean autoRename,
+            final RequestListener<File> listener) {
         params.setSaveFilePath(target);
         params.setAutoRename(autoRename);
         params.setAutoResume(true);

@@ -10,7 +10,7 @@ import android.widget.Toast;
 /**
  * 消息提示
  * 
- * @author huangzhongwen
+ * @author zhoushujie
  * 
  */
 public class ToastUtil {

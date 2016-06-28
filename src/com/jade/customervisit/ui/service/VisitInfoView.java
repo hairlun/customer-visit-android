@@ -25,27 +25,27 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-public class VisitInfoView extends LinearLayout implements OnRefreshListener, OnItemClickListener,
-		IServiceView {
+public class VisitInfoView extends LinearLayout implements OnRefreshListener,
+        OnItemClickListener, IServiceView {
 
-	private ListView lv;
-	private SwipeRefreshLayout swipe;
-	private ProgressBar progressBar;
+    private ListView lv;
+    private SwipeRefreshLayout swipe;
+    private ProgressBar progressBar;
 
     private VisitInfoAdapter adapter;
     public int page = 1;
     private int total = 0;
     public String keyword = "";
-    
+
     private List<VisitInfo> dataInfo = new ArrayList<VisitInfo>();
 
     /** http请求处理器，用于取消请求 */
     Cancelable httpHandler;
 
-	public VisitInfoView(Context context) {
-		super(context);
-		initView();
-	}
+    public VisitInfoView(Context context) {
+        super(context);
+        initView();
+    }
 
     private void initView() {
         LayoutInflater.from(getContext()).inflate(R.layout.view_service_list,
@@ -56,7 +56,7 @@ public class VisitInfoView extends LinearLayout implements OnRefreshListener, On
         lv.setOnItemClickListener(this);
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
-        
+
         adapter = new VisitInfoAdapter(dataInfo, getContext());
         lv.setAdapter(adapter);
         getVisitInfoList();
@@ -72,8 +72,8 @@ public class VisitInfoView extends LinearLayout implements OnRefreshListener, On
 
             @Override
             public void onStart() {
-            	swipe.post(new Runnable() {
-                    
+                swipe.post(new Runnable() {
+
                     @Override
                     public void run() {
                         swipe.setRefreshing(true);
@@ -92,13 +92,15 @@ public class VisitInfoView extends LinearLayout implements OnRefreshListener, On
                         if (page == 1) {
                             ToastUtil.showShort(getContext(), "没有数据");
                         } else {
-                            ToastUtil.showShort(getContext(), result.getRetinfo());
+                            ToastUtil.showShort(getContext(),
+                                    result.getRetinfo());
                         }
                     } else {
                         ToastUtil.showShort(getContext(), result.getRetinfo());
                     }
                 } else {
-                    ToastUtil.showShort(getContext(), R.string.connect_exception);
+                    ToastUtil.showShort(getContext(),
+                            R.string.connect_exception);
                 }
             }
 
@@ -116,7 +118,7 @@ public class VisitInfoView extends LinearLayout implements OnRefreshListener, On
         // 开始请求列表数据
         httpHandler = ServiceManager.getVisitInfo(2, page, keyword, callback);
     }
-    
+
     private void setData(List<VisitInfo> data) {
         if (page == 1) {
             adapter.setData(data);
@@ -126,8 +128,14 @@ public class VisitInfoView extends LinearLayout implements OnRefreshListener, On
         adapter.notifyDataSetChanged();
     }
 
-    /* (non-Javadoc)
-     * @see com.jade.customervisit.ui.view.swipe.SwipeRefreshLayout.OnRefreshListener#onRefresh(com.jade.customervisit.ui.view.swipe.SwipeRefreshLayoutDirection)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.jade.customervisit.ui.view.swipe.SwipeRefreshLayout.OnRefreshListener
+     * #
+     * onRefresh(com.jade.customervisit.ui.view.swipe.SwipeRefreshLayoutDirection
+     * )
      */
     @Override
     public void onRefresh(SwipeRefreshLayoutDirection direction) {
@@ -141,17 +149,21 @@ public class VisitInfoView extends LinearLayout implements OnRefreshListener, On
         }
     }
 
-    /* (non-Javadoc)
-     * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView, android.view.View, int, long)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget
+     * .AdapterView, android.view.View, int, long)
      */
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-        
+
     }
 
     @Override
     public void onRefresh() {
-    	page = 1;
+        page = 1;
         keyword = "";
         getVisitInfoList();
     }

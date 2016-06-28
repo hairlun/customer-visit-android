@@ -13,7 +13,7 @@ import android.widget.TextView;
 /**
  * 自定义消息提示的对话框
  * 
- * @author huangzhongwen
+ * @author zhoushujie
  * 
  */
 public class MsgDialog extends AbsCustomDialog {
@@ -40,7 +40,7 @@ public class MsgDialog extends AbsCustomDialog {
     /**
      * 按钮类型
      * 
-     * @author huangzhongwen 2014-8-20 下午4:04:12
+     * @author zhoushujie 2014-8-20 下午4:04:12
      */
     public enum BtnType {
         /**

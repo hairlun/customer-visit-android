@@ -17,7 +17,7 @@ import com.jade.customervisit.util.Login.LoginParser;
 
 /**
  * @author Administrator
- *
+ * 
  */
 public class LoginManager {
 
@@ -27,7 +27,7 @@ public class LoginManager {
     /**
      * 登录参数Key
      * 
-     * @author huangzhongwen
+     * @author zhoushujie
      * 
      */
     public interface RequestKey {
@@ -42,7 +42,7 @@ public class LoginManager {
     /**
      * 登录响应Key
      * 
-     * @author huangzhongwen
+     * @author zhoushujie
      * 
      */
     public interface ResponseKey {

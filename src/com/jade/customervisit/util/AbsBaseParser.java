@@ -8,7 +8,7 @@ import android.os.Handler;
 /**
  * 解析器抽象类
  * 
- * @author huangzhongwen
+ * @author zhoushujie
  * 
  * @param <T>
  */

@@ -14,7 +14,7 @@ import android.view.View.OnClickListener;
 /**
  * 网络工具类
  * 
- * @author huangzhongwen
+ * @author zhoushujie
  * 
  */
 public class NetUtils {
@@ -22,7 +22,7 @@ public class NetUtils {
     /**
      * 网络类型
      * 
-     * @author huangzhongwen
+     * @author zhoushujie
      * 
      */
     public enum NetType {

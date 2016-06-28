@@ -8,7 +8,7 @@ import com.jade.customervisit.network.IAsyncListener;
 /**
  * 请求结果解析器
  * 
- * @author huangzhongwen 2014-9-17 下午1:27:14
+ * @author zhoushujie 2014-9-17 下午1:27:14
  */
 public class RequestParser extends AbsBaseParser<RequestResult> {
 

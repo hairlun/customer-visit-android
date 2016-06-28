@@ -20,7 +20,7 @@ import android.widget.Toast;
 /**
  * 搜索界面
  * 
- * @author huangzhongwen
+ * @author zhoushujie
  * 
  */
 public class SearchView extends LinearLayout {
@@ -289,7 +289,7 @@ public class SearchView extends LinearLayout {
     /**
      * 按下回车键时执行的
      * 
-     * @author huangzhongwen
+     * @author zhoushujie
      * 
      */
     public interface OnEnterListener {

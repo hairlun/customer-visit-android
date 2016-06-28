@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author Administrator
- *
+ * 
  */
 public class ServiceContentListResult extends RequestResult {
 
@@ -36,5 +36,5 @@ public class ServiceContentListResult extends RequestResult {
                 + ", getRetcode()=" + getRetcode() + ", getRetinfo()="
                 + getRetinfo() + ", getResponse()=" + getResponse() + "]";
     }
-    
+
 }

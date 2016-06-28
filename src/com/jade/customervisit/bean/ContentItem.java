@@ -10,22 +10,21 @@ import java.io.Serializable;
 
 /**
  * @author Administrator
- *
+ * 
  */
 public class ContentItem implements Serializable {
 
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 10849534604745132L;
+    private static final long serialVersionUID = 10849534604745132L;
 
-	private String id;
-    
+    private String id;
+
     private String name;
-    
+
     /**
-     * 是否已经点击
-     * 0：未点击。1：已点击
+     * 是否已经点击 0：未点击。1：已点击
      */
     private String isClick = "0";
 
@@ -44,14 +43,12 @@ public class ContentItem implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    
-    public String getIsClick()
-    {
+
+    public String getIsClick() {
         return isClick;
     }
-    
-    public void setIsClick(String isClick)
-    {
+
+    public void setIsClick(String isClick) {
         this.isClick = isClick;
     }
 

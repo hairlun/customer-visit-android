@@ -41,17 +41,18 @@ public class CVApplication extends Application {
      * 服务器地址
      */
     public static final String DEFAULT_URL = "http://117.34.71.28/web/mobile";
-//    public static final String DEFAULT_URL = "http://192.168.0.106/cv/mobile";
+    // public static final String DEFAULT_URL =
+    // "http://192.168.0.106/cv/mobile";
 
     /**
-	 * app实例
-	 */
-	public static CVApplication cvApplication = null;
+     * app实例
+     */
+    public static CVApplication cvApplication = null;
 
-	/**
-	 * 本地activity栈
-	 */
-	public static List<Activity> activitys = new ArrayList<Activity>();
+    /**
+     * 本地activity栈
+     */
+    public static List<Activity> activitys = new ArrayList<Activity>();
 
     /** 字号大小 */
     private int titleTextStyle;
@@ -63,25 +64,25 @@ public class CVApplication extends Application {
     private String username;
 
     @Override
-	public void onCreate() {
-		super.onCreate();
-		x.Ext.init(this);
+    public void onCreate() {
+        super.onCreate();
+        x.Ext.init(this);
         x.Ext.setDebug(DEBUG);
-		cvApplication = this;
+        cvApplication = this;
         L.allowD = DEBUG;
         L.allowE = DEBUG;
         L.allowI = DEBUG;
         L.allowV = DEBUG;
         L.allowW = DEBUG;
         L.allowWtf = DEBUG;
-        
-        loadData(getApplicationContext());
-	}
 
-    public static void loadData(Context context)
-    {
-        ImageLoaderConfiguration config =
-            new ImageLoaderConfiguration.Builder(context).threadPriority(Thread.NORM_PRIORITY - 2)
+        loadData(getApplicationContext());
+    }
+
+    public static void loadData(Context context) {
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                context)
+                .threadPriority(Thread.NORM_PRIORITY - 2)
                 .threadPoolSize(4)
                 .tasksProcessingOrder(QueueProcessingType.FIFO)
                 .denyCacheImageMultipleSizesInMemory()
@@ -90,71 +91,67 @@ public class CVApplication extends Application {
                 .denyCacheImageMultipleSizesInMemory()
                 .discCacheFileNameGenerator(new Md5FileNameGenerator())
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
-                .discCache(new UnlimitedDiscCache(new File(FileSystemManager.getCacheImgFilePath(context))))
-                .build();
+                .discCache(
+                        new UnlimitedDiscCache(new File(FileSystemManager
+                                .getCacheImgFilePath(context)))).build();
         ImageLoader.getInstance().init(config);
     }
 
-	@Override
-	public void onTerminate() {
-		super.onTerminate();
-		for (Activity activity : activitys) {
-			activity.finish();
-			activity = null;
-		}
-		activitys.clear();
-	}
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        for (Activity activity : activitys) {
+            activity.finish();
+            activity = null;
+        }
+        activitys.clear();
+    }
 
-	/**
-	 * 
-	 * <添加> <功能详细描述>
-	 * 
-	 * @param activity
-	 * @see [类、类#方法、类#成员]
-	 */
-	public void addActivity(Activity activity) {
-		activitys.add(activity);
-	}
-
-	/**
-	 * 
-	 * <删除> <功能详细描述>
-	 * 
-	 * @param activity
-	 * @see [类、类#方法、类#成员]
-	 */
-	public void deleteActivity(Activity activity) {
-		if (activity != null) {
-			activitys.remove(activity);
-			activity.finish();
-			activity = null;
-		}
-	}
-    
     /**
-     * 初始化option
-     * picFail--加载失败时显示
-     * picLoading--正在加载图片时显示
-     * picEmpty--uri为空的时候显示
+     * 
+     * <添加> <功能详细描述>
+     * 
+     * @param activity
+     * @see [类、类#方法、类#成员]
      */
-    public static DisplayImageOptions setAllDisplayImageOptions(Context context, String picFail, String picLoading,
-        String picEmpty)
-    {
+    public void addActivity(Activity activity) {
+        activitys.add(activity);
+    }
+
+    /**
+     * 
+     * <删除> <功能详细描述>
+     * 
+     * @param activity
+     * @see [类、类#方法、类#成员]
+     */
+    public void deleteActivity(Activity activity) {
+        if (activity != null) {
+            activitys.remove(activity);
+            activity.finish();
+            activity = null;
+        }
+    }
+
+    /**
+     * 初始化option picFail--加载失败时显示 picLoading--正在加载图片时显示 picEmpty--uri为空的时候显示
+     */
+    public static DisplayImageOptions setAllDisplayImageOptions(
+            Context context, String picFail, String picLoading, String picEmpty) {
         DisplayImageOptions options;
-        //通过图片名调用图片ID
-        int fail = context.getResources().getIdentifier(picFail, "drawable", "com.jade.customervisit");
-        int loading = context.getResources().getIdentifier(picLoading, "drawable", "com.jade.customervisit");
-        int empty = context.getResources().getIdentifier(picEmpty, "drawable", "com.jade.customervisit");
-        options =
-            new DisplayImageOptions.Builder().cacheInMemory(true)
-                .showImageOnFail(fail)
-                .showImageForEmptyUri(empty)
-                .showImageOnLoading(loading)
-                .cacheOnDisc(true)
+        // 通过图片名调用图片ID
+        int fail = context.getResources().getIdentifier(picFail, "drawable",
+                "com.jade.customervisit");
+        int loading = context.getResources().getIdentifier(picLoading,
+                "drawable", "com.jade.customervisit");
+        int empty = context.getResources().getIdentifier(picEmpty, "drawable",
+                "com.jade.customervisit");
+        options = new DisplayImageOptions.Builder().cacheInMemory(true)
+                .showImageOnFail(fail).showImageForEmptyUri(empty)
+                .showImageOnLoading(loading).cacheOnDisc(true)
                 .considerExifParams(true)
-                .displayer(new FadeInBitmapDisplayer(0))
-                .build();
-        
+                .displayer(new FadeInBitmapDisplayer(0)).build();
+
         return options;
     }
 
@@ -162,10 +159,10 @@ public class CVApplication extends Application {
      * 初始化字号大小
      */
     public void initTextSize() {
-            titleTextStyle = R.style.titleTextNormal;
-            moduleTextStyle = R.style.moduleTextNormal;
-            moduleNumTextStyle = R.style.moduleNumTextNormal;
-            settingsTextStyle = R.style.settingsTextNormal;
+        titleTextStyle = R.style.titleTextNormal;
+        moduleTextStyle = R.style.moduleTextNormal;
+        moduleNumTextStyle = R.style.moduleNumTextNormal;
+        settingsTextStyle = R.style.settingsTextNormal;
     }
 
     public int getTitleTextStyle() {
@@ -195,7 +192,7 @@ public class CVApplication extends Application {
         }
         return settingsTextStyle;
     }
-    
+
     public void setUserid(String userid) {
         this.userid = userid;
     }

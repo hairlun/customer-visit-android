@@ -8,7 +8,7 @@ import android.os.Handler;
 /**
  * 异步任务抽象类
  * 
- * @author huangzhongwen
+ * @author zhoushujie
  * 
  * @param <Result>
  */

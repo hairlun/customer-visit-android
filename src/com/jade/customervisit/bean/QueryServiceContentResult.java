@@ -11,28 +11,28 @@ import java.util.List;
 
 /**
  * @author Administrator
- *
+ * 
  */
 public class QueryServiceContentResult extends RequestResult {
 
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 9062033815658620459L;
+    private static final long serialVersionUID = 9062033815658620459L;
 
-	private List<ServiceContent> serviceContentList = new ArrayList<ServiceContent>();
-    
+    private List<ServiceContent> serviceContentList = new ArrayList<ServiceContent>();
+
     private int total;
 
     public QueryServiceContentResult() {
-		super();
-	}
+        super();
+    }
 
-	public QueryServiceContentResult(String retcode, String retinfo) {
-		super(retcode, retinfo);
-	}
+    public QueryServiceContentResult(String retcode, String retinfo) {
+        super(retcode, retinfo);
+    }
 
-	public List<ServiceContent> getServiceContentList() {
+    public List<ServiceContent> getServiceContentList() {
         return serviceContentList;
     }
 
@@ -41,19 +41,20 @@ public class QueryServiceContentResult extends RequestResult {
     }
 
     public int getTotal() {
-		return total;
-	}
+        return total;
+    }
 
-	public void setTotal(int total) {
-		this.total = total;
-	}
+    public void setTotal(int total) {
+        this.total = total;
+    }
 
-	@Override
+    @Override
     public String toString() {
         return "ServiceContentListResult [serviceContentList="
-                + serviceContentList + ", total=" + total + ", isSuccesses()=" + isSuccesses()
-                + ", getRetcode()=" + getRetcode() + ", getRetinfo()="
-                + getRetinfo() + ", getResponse()=" + getResponse() + "]";
+                + serviceContentList + ", total=" + total + ", isSuccesses()="
+                + isSuccesses() + ", getRetcode()=" + getRetcode()
+                + ", getRetinfo()=" + getRetinfo() + ", getResponse()="
+                + getResponse() + "]";
     }
-    
+
 }

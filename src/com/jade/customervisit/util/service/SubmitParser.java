@@ -21,7 +21,7 @@ public class SubmitParser extends AbsBaseParser<SubmitResult> {
 
     @Override
     public SubmitResult parse(String response) {
-    	SubmitResult result = null;
+        SubmitResult result = null;
         try {
             JSONObject json = new JSONObject(response);
             if (json != null) {

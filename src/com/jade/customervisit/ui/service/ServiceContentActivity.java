@@ -29,132 +29,127 @@ import android.widget.TextView;
 
 /**
  * 
- * <服务内容界面 >
- * <功能详细描述>
+ * <服务内容界面 > <功能详细描述>
  * 
- * @author  cyf
- * @version  [版本号, 2014-11-17]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
+ * @author cyf
+ * @version [版本号, 2014-11-17]
+ * @see [相关类/方法]
+ * @since [产品/模块版本]
  */
-public class ServiceContentActivity extends BaseActivity implements OnClickListener
-{
+public class ServiceContentActivity extends BaseActivity implements
+        OnClickListener {
 
-	private TitleBarView titlebar;
+    private TitleBarView titlebar;
 
-	/**
-	 * 网络请求框
-	 */
-	private LoadingDialog loadingDialog;
-    
+    /**
+     * 网络请求框
+     */
+    private LoadingDialog loadingDialog;
+
     /**
      * listview
      */
     private ListView listView;
-    
+
     /**
      * 动态适配器
      */
     private ServiceContentSubmitAdapter adapter;
-    
+
     /**
      * 评论列表
      */
     private List<ContentItem> contentItems = new ArrayList<ContentItem>();
-    
+
     /**
      * 上传服务器
      */
     private Button upload;
-    
+
     private ServiceContent serviceContent;
 
     /** 列表http请求处理器，用于取消请求 */
     Cancelable contentHttpHandler;
-    
+
     Cancelable submitHttpHandler;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
-        serviceContent = (ServiceContent)getIntent().getSerializableExtra("serviceContent");
-        
+        serviceContent = (ServiceContent) getIntent().getSerializableExtra(
+                "serviceContent");
+
         initView();
         initData();
     }
 
-	@Override
-	protected void onDestroy() {
-		if (contentHttpHandler != null) {
-			contentHttpHandler.cancel();
-		}
-		if (submitHttpHandler != null) {
-			submitHttpHandler.cancel();
-		}
-		super.onDestroy();
-	}
+    @Override
+    protected void onDestroy() {
+        if (contentHttpHandler != null) {
+            contentHttpHandler.cancel();
+        }
+        if (submitHttpHandler != null) {
+            submitHttpHandler.cancel();
+        }
+        super.onDestroy();
+    }
 
     /**
      * 
-     * <初始化布局组件>
-     * <功能详细描述>
+     * <初始化布局组件> <功能详细描述>
+     * 
      * @see [类、类#方法、类#成员]
      */
-    private void initView()
-    {
-        titlebar = (TitleBarView)findViewById(R.id.content_titlebar);
+    private void initView() {
+        titlebar = (TitleBarView) findViewById(R.id.content_titlebar);
         titlebar.hideSearchBtn();
-        listView = (ListView)findViewById(R.id.content_listview);
-        upload = (Button)findViewById(R.id.upload);
+        listView = (ListView) findViewById(R.id.content_listview);
+        upload = (Button) findViewById(R.id.upload);
         loadingDialog = new LoadingDialog(context);
-        
+
         /**
          * 添加按钮点击事件
          */
         upload.setOnClickListener(this);
-        
-        listView.setOnItemClickListener(new OnItemClickListener()
-        {
+
+        listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
-            {
-                if ("0".equals(contentItems.get(position).getIsClick()))
-                {
+            public void onItemClick(AdapterView<?> arg0, View arg1,
+                    int position, long arg3) {
+                if ("0".equals(contentItems.get(position).getIsClick())) {
                     contentItems.get(position).setIsClick("1");
-                }
-                else
-                {
+                } else {
                     contentItems.get(position).setIsClick("0");
                 }
                 adapter.notifyDataSetChanged();
             }
         });
     }
-    
+
     /**
      * 
-     * <初始化数据>
-     * <功能详细描述>
+     * <初始化数据> <功能详细描述>
+     * 
      * @see [类、类#方法、类#成员]
      */
-    private void initData()
-    {
-    	titlebar.setTitle(serviceContent.getTitle());
-        serviceContent = (ServiceContent) getIntent().getSerializableExtra("serviceContent");
-        adapter = new ServiceContentSubmitAdapter(contentItems, ServiceContentActivity.this);
+    private void initData() {
+        titlebar.setTitle(serviceContent.getTitle());
+        serviceContent = (ServiceContent) getIntent().getSerializableExtra(
+                "serviceContent");
+        adapter = new ServiceContentSubmitAdapter(contentItems,
+                ServiceContentActivity.this);
         listView.setAdapter(adapter);
         contentItems = serviceContent.getContents();
         if (contentItems != null && contentItems.size() > 0) {
-        	setData(contentItems);
+            setData(contentItems);
         } else {
-        	queryContent();
+            queryContent();
         }
     }
 
-	private void queryContent() {
-		RequestListener<QueryContentResult> callback = new RequestListener<QueryContentResult>() {
+    private void queryContent() {
+        RequestListener<QueryContentResult> callback = new RequestListener<QueryContentResult>() {
 
             @Override
             public void onStart() {
@@ -163,7 +158,7 @@ public class ServiceContentActivity extends BaseActivity implements OnClickListe
 
             @Override
             public void onSuccess(int statusCode, QueryContentResult result) {
-            	if (result != null) {
+                if (result != null) {
                     if (result.isSuccesses()) {
                         contentItems = result.getContentList();
                         setData(contentItems);
@@ -188,23 +183,23 @@ public class ServiceContentActivity extends BaseActivity implements OnClickListe
             }
         };
         // 开始请求列表数据
-        contentHttpHandler = ServiceManager.queryContent(serviceContent.getServiceId(), callback);
-	}
-	
-	private void setData(List<ContentItem> data) {
-	    adapter.setData(data);
-	    adapter.notifyDataSetChanged();
-	}
+        contentHttpHandler = ServiceManager.queryContent(
+                serviceContent.getServiceId(), callback);
+    }
+
+    private void setData(List<ContentItem> data) {
+        adapter.setData(data);
+        adapter.notifyDataSetChanged();
+    }
 
     /**
      * 
-     * <服务内容提交>
-     * <功能详细描述>
+     * <服务内容提交> <功能详细描述>
+     * 
      * @see [类、类#方法、类#成员]
      */
-    private void submitContent(String ids)
-    {
-    	RequestListener<SubmitResult> callback = new RequestListener<SubmitResult>() {
+    private void submitContent(String ids) {
+        RequestListener<SubmitResult> callback = new RequestListener<SubmitResult>() {
 
             @Override
             public void onStart() {
@@ -213,9 +208,9 @@ public class ServiceContentActivity extends BaseActivity implements OnClickListe
 
             @Override
             public void onSuccess(int statusCode, SubmitResult result) {
-            	if (result != null) {
+                if (result != null) {
                     if (result.isSuccesses()) {
-                    	ToastUtil.showShort(context, "提交成功");
+                        ToastUtil.showShort(context, "提交成功");
                     } else {
                         ToastUtil.showShort(context, result.getRetinfo());
                     }
@@ -235,31 +230,28 @@ public class ServiceContentActivity extends BaseActivity implements OnClickListe
             }
         };
         // 开始请求列表数据
-        submitHttpHandler = ServiceManager.submitContent(ids, serviceContent.getServiceId(), callback);
+        submitHttpHandler = ServiceManager.submitContent(ids,
+                serviceContent.getServiceId(), callback);
     }
-    
+
     @Override
-    public void onClick(View v)
-    {
-        switch (v.getId())
-        {
-            /**
-             * 上传
-             */
-            case R.id.upload:
-                String ids = "";
-                for (int i = 0; i < contentItems.size(); i++)
-                {
-                    if ("1".equals(contentItems.get(i).getIsClick()))
-                    {
-                        ids = ids.concat(contentItems.get(i).getId());
-                        ids += ",";
-                    }
+    public void onClick(View v) {
+        switch (v.getId()) {
+        /**
+         * 上传
+         */
+        case R.id.upload:
+            String ids = "";
+            for (int i = 0; i < contentItems.size(); i++) {
+                if ("1".equals(contentItems.get(i).getIsClick())) {
+                    ids = ids.concat(contentItems.get(i).getId());
+                    ids += ",";
                 }
-                submitContent(ids.replaceFirst(",$", ""));
-                break;
-            default:
-                break;
+            }
+            submitContent(ids.replaceFirst(",$", ""));
+            break;
+        default:
+            break;
         }
     }
 
