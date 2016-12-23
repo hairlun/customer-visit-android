@@ -22,6 +22,10 @@
     <string name="cancel">取消</string>
     <string name="search_input_keyword">请输入关键字</string>
     <string name="keyword">关键字</string>
+    <string name="customer_visit">客户访问</string>
+    <string name="workflow">合力专销</string>
+    <string name="workflow_todo">待办理流程</string>
+    <string name="workflow_done">已办理流程</string>
 
     <!-- 自定义标题栏 -->
     <string name="titlebar_back">返回  </string>

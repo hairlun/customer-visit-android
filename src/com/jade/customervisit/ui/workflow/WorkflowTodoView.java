@@ -1,4 +1,10 @@
-﻿package com.jade.customervisit.ui.service;
+/**
+ * CustomerVisit
+ * WorkflowView
+ * zhoushujie
+ * 2016年12月8日 下午9:36:38
+ */
+package com.jade.customervisit.ui.workflow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,74 +12,69 @@ import java.util.List;
 import org.xutils.common.Callback.Cancelable;
 
 import com.jade.customervisit.R;
-import com.jade.customervisit.adapter.ServiceContentAdapter;
-import com.jade.customervisit.bean.ServiceContent;
-import com.jade.customervisit.bean.QueryServiceContentResult;
+import com.jade.customervisit.adapter.WorkflowTodoAdapter;
+import com.jade.customervisit.bean.QueryWorkflowResult;
+import com.jade.customervisit.bean.Workflow;
 import com.jade.customervisit.bll.ServiceManager;
 import com.jade.customervisit.network.RequestListener;
 import com.jade.customervisit.ui.view.IListView;
-import com.jade.customervisit.ui.view.swipe.SwipeRefreshLayout;
 import com.jade.customervisit.ui.view.swipe.SwipeRefreshLayout.OnRefreshListener;
-import com.jade.customervisit.ui.view.swipe.SwipeRefreshLayoutDirection;
 import com.jade.customervisit.util.ToastUtil;
+import com.jade.customervisit.ui.view.swipe.SwipeRefreshLayout;
+import com.jade.customervisit.ui.view.swipe.SwipeRefreshLayoutDirection;
 
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 
-public class ServiceContentView extends LinearLayout
+/**
+ * @author zhoushujie
+ *
+ */
+public class WorkflowTodoView extends LinearLayout
         implements OnRefreshListener, OnItemClickListener, IListView {
 
     private ListView lv;
     private SwipeRefreshLayout swipe;
-    private ProgressBar progressBar;
-
-    private ServiceContentAdapter adapter;
+    private WorkflowTodoAdapter adapter;
     public int page = 1;
     private int total = 0;
     public String keyword = "";
-
-    /**
-     * 服务列表
-     */
-    private List<ServiceContent> dataInfo = new ArrayList<ServiceContent>();
-
+    private List<Workflow> dataInfo = new ArrayList<Workflow>();
     /** http请求处理器，用于取消请求 */
     Cancelable httpHandler;
 
-    public ServiceContentView(Context context) {
+    /**
+     * @param context
+     */
+    public WorkflowTodoView(Context context) {
         super(context);
         initView();
     }
 
     private void initView() {
-        LayoutInflater.from(getContext()).inflate(R.layout.view_service_list,
-                this);
+        LayoutInflater.from(getContext()).inflate(R.layout.view_workflow, this);
         swipe = (SwipeRefreshLayout) findViewById(R.id.swipe);
         swipe.setOnRefreshListener(this);
-        lv = (ListView) findViewById(R.id.service_listview);
+        lv = (ListView) findViewById(R.id.listview);
         lv.setOnItemClickListener(this);
-        progressBar = (ProgressBar) findViewById(R.id.progressbar);
-        progressBar.setVisibility(View.GONE);
-
-        adapter = new ServiceContentAdapter(dataInfo, getContext());
+        adapter = new WorkflowTodoAdapter(dataInfo, getContext());
         lv.setAdapter(adapter);
-        queryServiceContentList();
+        loadData();
     }
 
-    public void queryServiceContentList() {
+    public void loadData() {
         if (page > 1 && (page - 1) * ServiceManager.LIMIT >= total) {
             ToastUtil.showShort(getContext(), "没有更多数据了");
             swipe.setRefreshing(false);
             return;
         }
-        RequestListener<QueryServiceContentResult> callback = new RequestListener<QueryServiceContentResult>() {
+        RequestListener<QueryWorkflowResult> callback = new RequestListener<QueryWorkflowResult>() {
 
             @Override
             public void onStart() {
@@ -87,11 +88,10 @@ public class ServiceContentView extends LinearLayout
             }
 
             @Override
-            public void onSuccess(int statusCode,
-                    QueryServiceContentResult result) {
+            public void onSuccess(int stateCode, QueryWorkflowResult result) {
                 if (result != null) {
                     if (result.isSuccesses()) {
-                        dataInfo = result.getServiceContentList();
+                        dataInfo = result.getWofklowList();
                         total = result.getTotal();
                         setData(dataInfo);
                     } else if (result.getRetcode().equals("000004")) {
@@ -121,12 +121,10 @@ public class ServiceContentView extends LinearLayout
             }
         };
 
-        // 开始请求列表数据
-        httpHandler = ServiceManager.queryServiceContent(0, page, keyword,
-                callback);
+        httpHandler = ServiceManager.dealWorkflowList(page, keyword, callback);
     }
 
-    private void setData(List<ServiceContent> data) {
+    private void setData(List<Workflow> data) {
         if (page == 1) {
             adapter.setData(data);
         } else {
@@ -135,30 +133,51 @@ public class ServiceContentView extends LinearLayout
         adapter.notifyDataSetChanged();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.jade.customervisit.ui.view.IListView#onRefresh()
+     */
+    @Override
+    public void onRefresh() {
+        page = 1;
+        keyword = "";
+        loadData();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget
+     * .AdapterView, android.view.View, int, long)
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position,
+            long id) {
+        // Intent intent = new Intent(getContext(), ServiceMainActivity.class);
+        // intent.putExtra("serviceContent", dataInfo.get(position));
+        // getContext().startActivity(intent);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.jade.customervisit.ui.view.swipe.SwipeRefreshLayout.OnRefreshListener
+     * #onRefresh(com.jade.customervisit.ui.view.swipe.
+     * SwipeRefreshLayoutDirection)
+     */
     @Override
     public void onRefresh(SwipeRefreshLayoutDirection direction) {
         if (SwipeRefreshLayoutDirection.TOP == direction) {
             page = 1;
             keyword = "";
-            queryServiceContentList();
+            loadData();
         } else if (SwipeRefreshLayoutDirection.BOTTOM == direction) {
             page++;
-            queryServiceContentList();
+            loadData();
         }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-            long id) {
-        Intent intent = new Intent(getContext(), ServiceMainActivity.class);
-        intent.putExtra("serviceContent", dataInfo.get(position));
-        getContext().startActivity(intent);
-    }
-
-    @Override
-    public void onRefresh() {
-        page = 1;
-        keyword = "";
-        queryServiceContentList();
-    }
 }

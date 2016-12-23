@@ -17,6 +17,7 @@ import com.jade.customervisit.bean.GetVisitInfoResult;
 import com.jade.customervisit.bean.QueryContentResult;
 import com.jade.customervisit.bean.QueryServiceContentResult;
 import com.jade.customervisit.bean.QueryServiceStatusResult;
+import com.jade.customervisit.bean.QueryWorkflowResult;
 import com.jade.customervisit.bean.SubmitResult;
 import com.jade.customervisit.network.RequestListener;
 import com.jade.customervisit.network.WebService;
@@ -26,6 +27,7 @@ import com.jade.customervisit.util.service.QueryContentParser;
 import com.jade.customervisit.util.service.QueryServiceContentParser;
 import com.jade.customervisit.util.service.QueryServiceStatusParser;
 import com.jade.customervisit.util.service.SubmitParser;
+import com.jade.customervisit.util.workflow.QueryWorkflowParser;
 
 /**
  * @author Administrator
@@ -133,6 +135,18 @@ public class ServiceManager {
         String CONTENT_ID = "id";
 
         String CONTENT_NAME = "name";
+
+        String WORKFLOW_ID = "id";
+
+        String CUSTOMER = "customer";
+
+        String PROBLEM_FINDER = "problemFinder";
+
+        String RECEIVE_TIME = "receiveTime";
+
+        String HANDLE_TIME = "handleTime";
+
+        String BRIEF = "brief";
     }
 
     /**
@@ -156,6 +170,18 @@ public class ServiceManager {
 
         /** 获取拜访信息 */
         String GET_VISIT_INFO = "/getVisitInfo.do?";
+
+        String DEAL_WORKFLOW_LIST = "/dealWorkflowList.do?";
+
+        String VIEW_WORKFLOW_LIST = "/viewWorkflowList.do?";
+
+        String DEAL_WORKFLOW = "/dealWorkflow.do?";
+
+        String VIEW_WORKFLOW = "/viewWorkflow.do?";
+
+        String NEW_WORKFLOW_SUBMIT = "/newWorkflowSubmit.do?";
+
+        String DEAL_WORKFLOW_SUBMIT = "/dealWorkflowSubmit.do?";
     }
 
     public static Cancelable queryServiceContent(int type, int page,
@@ -173,7 +199,8 @@ public class ServiceManager {
     public static Cancelable queryContent(String serviceId,
             final RequestListener<QueryContentResult> listener) {
         String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID };
-        String[] values = { CVApplication.cvApplication.getUserid(), serviceId };
+        String[] values = { CVApplication.cvApplication.getUserid(),
+                serviceId };
         return WebService.post(Url.QUERY_CONTENT, keys, values, listener,
                 new QueryContentParser(listener));
     }
@@ -181,9 +208,10 @@ public class ServiceManager {
     public static Cancelable queryServiceStatus(String serviceId,
             final RequestListener<QueryServiceStatusResult> listener) {
         String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID };
-        String[] values = { CVApplication.cvApplication.getUserid(), serviceId };
-        return WebService.post(Url.QUERY_SERVICE_STATUS, keys, values,
-                listener, new QueryServiceStatusParser(listener));
+        String[] values = { CVApplication.cvApplication.getUserid(),
+                serviceId };
+        return WebService.post(Url.QUERY_SERVICE_STATUS, keys, values, listener,
+                new QueryServiceStatusParser(listener));
     }
 
     public static Cancelable getVisitInfo(int type, int page, String keyword,
@@ -232,7 +260,8 @@ public class ServiceManager {
     public static Cancelable photoSign(String serviceId, List<File> files,
             final RequestListener<SubmitResult> listener) {
         String[] keys = { RequestKey.USER_ID, RequestKey.SERVICE_ID };
-        String[] values = { CVApplication.cvApplication.getUserid(), serviceId };
+        String[] values = { CVApplication.cvApplication.getUserid(),
+                serviceId };
         RequestParams params = CommonUtils.createParams(keys, values,
                 WebService.URL + Url.SUBMIT_SERVICE_RESULT);
         params.setMultipart(true);
@@ -240,5 +269,25 @@ public class ServiceManager {
             params.addBodyParameter(RequestKey.FILE, file);
         }
         return WebService.upload(params, listener, new SubmitParser(listener));
+    }
+
+    public static Cancelable dealWorkflowList(int page, String keyword,
+            final RequestListener<QueryWorkflowResult> listener) {
+        String[] keys = { RequestKey.USER_ID, RequestKey.PAGE, RequestKey.LIMIT,
+                RequestKey.KEYWORD };
+        String[] values = { CVApplication.cvApplication.getUserid(),
+                String.valueOf(page), String.valueOf(LIMIT), keyword };
+        return WebService.post(Url.DEAL_WORKFLOW_LIST, keys, values, listener,
+                new QueryWorkflowParser(listener));
+    }
+
+    public static Cancelable viewWorkflowList(int page, String keyword,
+            final RequestListener<QueryWorkflowResult> listener) {
+        String[] keys = { RequestKey.USER_ID, RequestKey.PAGE, RequestKey.LIMIT,
+                RequestKey.KEYWORD };
+        String[] values = { CVApplication.cvApplication.getUserid(),
+                String.valueOf(page), String.valueOf(LIMIT), keyword };
+        return WebService.post(Url.VIEW_WORKFLOW_LIST, keys, values, listener,
+                new QueryWorkflowParser(listener));
     }
 }

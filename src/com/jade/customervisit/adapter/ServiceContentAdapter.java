@@ -69,12 +69,13 @@ public class ServiceContentAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView,
+            ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(this.context).inflate(
-                    R.layout.item_service_content, null);
+            convertView = LayoutInflater.from(this.context)
+                    .inflate(R.layout.item_service_content, null);
             viewHolder.title = (TextView) convertView.findViewById(R.id.title);
             viewHolder.name = (TextView) convertView.findViewById(R.id.name);
             viewHolder.time = (TextView) convertView.findViewById(R.id.time);
@@ -85,8 +86,8 @@ public class ServiceContentAdapter extends BaseAdapter {
         viewHolder.title.setText(data.get(position).getTitle());
         viewHolder.name.setText(data.get(position).getCustomerName());
         try {
-            viewHolder.time.setText(DATE_SDF2.format(DATE_SDF1.parse(data.get(
-                    position).getCreateTime())));
+            viewHolder.time.setText(DATE_SDF2.format(
+                    DATE_SDF1.parse(data.get(position).getCreateTime())));
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

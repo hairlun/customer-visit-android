@@ -11,6 +11,7 @@ import com.jade.customervisit.bean.GetVisitInfoResult;
 import com.jade.customervisit.bean.VisitInfo;
 import com.jade.customervisit.bll.ServiceManager;
 import com.jade.customervisit.network.RequestListener;
+import com.jade.customervisit.ui.view.IListView;
 import com.jade.customervisit.ui.view.swipe.SwipeRefreshLayout;
 import com.jade.customervisit.ui.view.swipe.SwipeRefreshLayout.OnRefreshListener;
 import com.jade.customervisit.ui.view.swipe.SwipeRefreshLayoutDirection;
@@ -26,7 +27,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 public class VisitInfoView extends LinearLayout implements OnRefreshListener,
-        OnItemClickListener, IServiceView {
+        OnItemClickListener, IListView {
 
     private ListView lv;
     private SwipeRefreshLayout swipe;

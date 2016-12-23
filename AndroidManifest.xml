@@ -40,6 +40,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.jade.customervisit.ui.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.jade.customervisit.ui.service.ServiceListActivity"
             android:screenOrientation="portrait" />
         <activity

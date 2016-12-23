@@ -27,7 +27,8 @@ public class ServiceContentSubmitAdapter extends BaseAdapter {
 
     private Context context;
 
-    public ServiceContentSubmitAdapter(List<ContentItem> data, Context context) {
+    public ServiceContentSubmitAdapter(List<ContentItem> data,
+            Context context) {
         super();
         this.data = data;
         this.context = context;
@@ -61,12 +62,13 @@ public class ServiceContentSubmitAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView,
+            ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(this.context).inflate(
-                    R.layout.item_content, null);
+            convertView = LayoutInflater.from(this.context)
+                    .inflate(R.layout.item_content, null);
             viewHolder.title = (TextView) convertView.findViewById(R.id.title);
             viewHolder.select = (CheckBox) convertView
                     .findViewById(R.id.select);

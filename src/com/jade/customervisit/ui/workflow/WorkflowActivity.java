@@ -1,21 +1,32 @@
-package com.jade.customervisit.ui.service;
+/**
+ * CustomerVisit
+ * WorkflowActivity
+ * zhoushujie
+ * 2016年12月7日 下午5:05:43
+ */
+package com.jade.customervisit.ui.workflow;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.xutils.common.util.LogUtil;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
+import com.jade.customervisit.R;
+import com.jade.customervisit.adapter.ListPagerAdapter;
+import com.jade.customervisit.ui.BaseActivity;
+import com.jade.customervisit.ui.service.ServiceSearchActivity;
+import com.jade.customervisit.ui.view.ActionItem;
+import com.jade.customervisit.ui.view.IListView;
+import com.jade.customervisit.ui.view.TitleBarView;
+import com.jade.customervisit.util.Constants;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -23,19 +34,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jade.customervisit.CVApplication;
-import com.jade.customervisit.R;
-import com.jade.customervisit.adapter.ListPagerAdapter;
-import com.jade.customervisit.ui.BaseActivity;
-import com.jade.customervisit.ui.view.ActionItem;
-import com.jade.customervisit.ui.view.IListView;
-import com.jade.customervisit.ui.view.TitleBarView;
-import com.jade.customervisit.util.Constants;
-
-public class ServiceListActivity extends BaseActivity implements
-        OnItemClickListener, OnPageChangeListener, OnClickListener {
-
-    public static final String TAG = ServiceListActivity.class.getName();
+/**
+ * @author zhoushujie
+ *
+ */
+public class WorkflowActivity extends BaseActivity
+        implements OnClickListener, OnPageChangeListener, OnItemClickListener {
 
     /** 标题栏 */
     TitleBarView mTitleBar;
@@ -52,9 +56,9 @@ public class ServiceListActivity extends BaseActivity implements
     /** View集合 */
     List<LinearLayout> mViews = new ArrayList<LinearLayout>();
 
-    ServiceContentView serviceContentView = null;
+    WorkflowTodoView workflowTodoView = null;
 
-    VisitInfoView visitInfoView = null;
+    WorkflowDoneView workflowDoneView = null;
 
     Context mContext;
 
@@ -90,26 +94,16 @@ public class ServiceListActivity extends BaseActivity implements
      * 初始化界面
      */
     private void initView() {
-        mTitleBar.setTitle(R.string.service_list)
-                .setOnSearchClickListener(this);
-        if (!CVApplication.cvApplication.getUsername().equals("admin")) {
-            // 非admin用户才有服务列表界面
-            mTitleBar
-                    .showMoreBtn()
-                    .addMenuItem(
-                            new ActionItem(mContext, 0, R.string.service_list))
-                    .addMenuItem(
-                            new ActionItem(mContext, 1,
-                                    R.string.service_record_list))
-                    .setOnMenuItemClickListener(this).select(0);
-            // 服务列表界面
-            serviceContentView = new ServiceContentView(this);
-            mViews.add(serviceContentView);
-        }
-        // 服务记录界面
-        visitInfoView = new VisitInfoView(this);
-        mViews.add(visitInfoView);
-
+        mTitleBar.setTitle(R.string.workflow_todo)
+                .setOnSearchClickListener(this).showMoreBtn()
+                .addMenuItem(new ActionItem(mContext, 0, R.string.service_list))
+                .addMenuItem(new ActionItem(mContext, 1,
+                        R.string.service_record_list))
+                .setOnMenuItemClickListener(this).select(0);
+        workflowTodoView = new WorkflowTodoView(mContext);
+        mViews.add(workflowTodoView);
+        workflowDoneView = new WorkflowDoneView(mContext);
+        mViews.add(workflowDoneView);
         mPagerAdapter = new ListPagerAdapter(this, mViews);
         mPager.setAdapter(mPagerAdapter);
     }
@@ -175,11 +169,6 @@ public class ServiceListActivity extends BaseActivity implements
         }
     }
 
-    public static void start(Context context) {
-        Intent intent = new Intent(context, ServiceListActivity.class);
-        context.startActivity(intent);
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -187,12 +176,12 @@ public class ServiceListActivity extends BaseActivity implements
             if (mPager.getCurrentItem() == 0) {
                 // 服务列表
                 Intent intent = new Intent(this, ServiceSearchActivity.class);
-                intent.putExtra(Constants.KEYWORD, serviceContentView.keyword);
+                intent.putExtra(Constants.KEYWORD, workflowTodoView.keyword);
                 startActivityForResult(intent, Constants.SEARCH_SERVICE);
             } else {
                 // 服务记录
                 Intent intent = new Intent(this, ServiceSearchActivity.class);
-                intent.putExtra(Constants.KEYWORD, visitInfoView.keyword);
+                intent.putExtra(Constants.KEYWORD, workflowDoneView.keyword);
                 startActivityForResult(intent, Constants.SEARCH_SERVICE);
             }
             break;
@@ -200,20 +189,23 @@ public class ServiceListActivity extends BaseActivity implements
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode,
+            Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constants.SEARCH_SERVICE && resultCode == RESULT_OK) {
+        if (requestCode == Constants.SEARCH_SERVICE
+                && resultCode == RESULT_OK) {
             if (mPager.getCurrentItem() == 0) {
                 // 服务列表
-                serviceContentView.keyword = data
+                workflowTodoView.keyword = data
                         .getStringExtra(Constants.KEYWORD);
-                serviceContentView.page = 1;
-                serviceContentView.queryServiceContentList();
+                workflowTodoView.page = 1;
+                workflowTodoView.loadData();
             } else {
                 // 服务记录
-                visitInfoView.keyword = data.getStringExtra(Constants.KEYWORD);
-                visitInfoView.page = 1;
-                visitInfoView.getVisitInfoList();
+                workflowDoneView.keyword = data
+                        .getStringExtra(Constants.KEYWORD);
+                workflowDoneView.page = 1;
+                workflowDoneView.loadData();
             }
         }
     }
@@ -223,4 +215,5 @@ public class ServiceListActivity extends BaseActivity implements
         super.onDestroy();
         unregisterReceiver();
     }
+
 }
