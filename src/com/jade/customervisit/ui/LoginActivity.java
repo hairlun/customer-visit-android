@@ -9,12 +9,12 @@ import com.jade.customervisit.bean.LoginResult;
 import com.jade.customervisit.bll.LoginManager;
 import com.jade.customervisit.bll.UpgradeManager;
 import com.jade.customervisit.network.RequestListener;
+import com.jade.customervisit.ui.service.ServiceListActivity;
 import com.jade.customervisit.ui.view.dialog.AbsCustomDialog;
 import com.jade.customervisit.util.CommonUtils;
 import com.jade.customervisit.util.NetUtils;
 import com.jade.customervisit.util.ToastUtil;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -128,7 +128,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                         CVApplication.cvApplication.setUserid(result
                                 .getUserid());
                         CVApplication.cvApplication.setUsername(username);
-                        startActivity(new Intent(context, MainActivity.class));
+                        ServiceListActivity.start(context);
                         finish();
                     } else {
                         ToastUtil.showLong(context, result.getRetinfo());
@@ -160,10 +160,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
             username = login_user_edit.getText().toString().trim();
             password = login_password_edit.getText().toString().trim();
             if (CommonUtils.isNullOrZeroLenght(username)) {
-                Toast.makeText(LoginActivity.this, "用户名不能为空，请重新输入!", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "用户名不能为空，请重新输入!", 1).show();
                 break;
             } else if (CommonUtils.isNullOrZeroLenght(password)) {
-                Toast.makeText(LoginActivity.this, "密码不能为空，请重新输入!", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "密码不能为空，请重新输入!", 1).show();
                 break;
             } else {
                 login(username, password);

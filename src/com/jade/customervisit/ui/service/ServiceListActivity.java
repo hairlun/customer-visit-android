@@ -25,10 +25,9 @@ import android.widget.TextView;
 
 import com.jade.customervisit.CVApplication;
 import com.jade.customervisit.R;
-import com.jade.customervisit.adapter.ListPagerAdapter;
+import com.jade.customervisit.adapter.ServiceListPagerAdapter;
 import com.jade.customervisit.ui.BaseActivity;
 import com.jade.customervisit.ui.view.ActionItem;
-import com.jade.customervisit.ui.view.IListView;
 import com.jade.customervisit.ui.view.TitleBarView;
 import com.jade.customervisit.util.Constants;
 
@@ -44,7 +43,7 @@ public class ServiceListActivity extends BaseActivity implements
     ViewPager mPager;
 
     /** 界面切换适配器 */
-    ListPagerAdapter mPagerAdapter;
+    ServiceListPagerAdapter mPagerAdapter;
 
     /** 遮罩层 */
     TextView mShadeTv;
@@ -91,7 +90,8 @@ public class ServiceListActivity extends BaseActivity implements
      */
     private void initView() {
         mTitleBar.setTitle(R.string.service_list)
-                .setOnSearchClickListener(this);
+                .setOnSearchClickListener(this).setOnBackClickListener(this)
+                .setBackText("退出");
         if (!CVApplication.cvApplication.getUsername().equals("admin")) {
             // 非admin用户才有服务列表界面
             mTitleBar
@@ -110,7 +110,7 @@ public class ServiceListActivity extends BaseActivity implements
         visitInfoView = new VisitInfoView(this);
         mViews.add(visitInfoView);
 
-        mPagerAdapter = new ListPagerAdapter(this, mViews);
+        mPagerAdapter = new ServiceListPagerAdapter(this, mViews);
         mPager.setAdapter(mPagerAdapter);
     }
 
@@ -123,7 +123,7 @@ public class ServiceListActivity extends BaseActivity implements
 
     private void doRefresh() {
         for (LinearLayout ll : mViews) {
-            ((IListView) ll).onRefresh();
+            ((IServiceView) ll).onRefresh();
         }
     }
 
@@ -183,6 +183,10 @@ public class ServiceListActivity extends BaseActivity implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+        case R.id.titlebar_back_btn:
+            showDialog();
+            break;
+
         case R.id.titlebar_search_btn:
             if (mPager.getCurrentItem() == 0) {
                 // 服务列表
@@ -197,6 +201,14 @@ public class ServiceListActivity extends BaseActivity implements
             }
             break;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            showDialog();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
@@ -222,5 +234,29 @@ public class ServiceListActivity extends BaseActivity implements
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver();
+    }
+
+    /**
+     * 
+     * <退出框> <功能详细描述>
+     * 
+     * @see [类、类#方法、类#成员]
+     */
+    private void showDialog() {
+        AlertDialog.Builder builder = new Builder(this);
+        builder.setTitle("提示").setMessage("是否退出程序？")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        System.exit(1);
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).create().show();
     }
 }

@@ -24,8 +24,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class ServiceMainActivity extends BaseActivity
-        implements OnClickListener {
+public class ServiceMainActivity extends BaseActivity implements
+        OnClickListener {
 
     private TitleBarView titlebar;
 
@@ -79,8 +79,8 @@ public class ServiceMainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_main);
-        serviceContent = (ServiceContent) getIntent()
-                .getSerializableExtra("serviceContent");
+        serviceContent = (ServiceContent) getIntent().getSerializableExtra(
+                "serviceContent");
 
         initView();
         initData();
@@ -104,10 +104,8 @@ public class ServiceMainActivity extends BaseActivity
         titlebar = (TitleBarView) findViewById(R.id.service_main_titlebar);
         titlebar.hideSearchBtn();
         customerNameTv = (TextView) findViewById(R.id.customer_name);
-        two_dimensional_code_sign = (Button) findViewById(
-                R.id.two_dimensional_code_sign);
-        two_dimensional_code_exit = (Button) findViewById(
-                R.id.two_dimensional_code_exit);
+        two_dimensional_code_sign = (Button) findViewById(R.id.two_dimensional_code_sign);
+        two_dimensional_code_exit = (Button) findViewById(R.id.two_dimensional_code_exit);
         service_contents = (Button) findViewById(R.id.service_contents);
         trace_service = (Button) findViewById(R.id.trace_service);
         service_evaluation = (Button) findViewById(R.id.service_evaluation);
@@ -166,8 +164,8 @@ public class ServiceMainActivity extends BaseActivity
         }
         urlSet.add(ServiceManager.Url.QUERY_CONTENT);
         // 开始请求列表数据
-        httpHandler = ServiceManager.queryContent(serviceContent.getServiceId(),
-                callback);
+        httpHandler = ServiceManager.queryContent(
+                serviceContent.getServiceId(), callback);
     }
 
     private void queryServiceStatus() {
@@ -211,8 +209,8 @@ public class ServiceMainActivity extends BaseActivity
         }
         urlSet.add(ServiceManager.Url.QUERY_SERVICE_STATUS);
         // 开始请求服务状态信息
-        httpHandler = ServiceManager
-                .queryServiceStatus(serviceContent.getServiceId(), callback);
+        httpHandler = ServiceManager.queryServiceStatus(
+                serviceContent.getServiceId(), callback);
     }
 
     private void refresh() {

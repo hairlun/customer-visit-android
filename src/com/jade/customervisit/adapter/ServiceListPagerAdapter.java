@@ -13,16 +13,16 @@ import android.widget.LinearLayout.LayoutParams;
 /***
  * 工作界面 Pager适配器
  */
-public class ListPagerAdapter extends PagerAdapter {
+public class ServiceListPagerAdapter extends PagerAdapter {
 
-    public static final String TAG = ListPagerAdapter.class.getName();
+    public static final String TAG = ServiceListPagerAdapter.class.getName();
 
     Context mContext;
 
     /** View集合 */
     private List<LinearLayout> views = new ArrayList<LinearLayout>();
 
-    public ListPagerAdapter(Context context, List<LinearLayout> views) {
+    public ServiceListPagerAdapter(Context context, List<LinearLayout> views) {
         mContext = context;
         this.views = views;
     }

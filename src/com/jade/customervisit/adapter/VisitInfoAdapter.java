@@ -66,13 +66,12 @@ public class VisitInfoAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView,
-            ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(this.context)
-                    .inflate(R.layout.item_visit_info, null);
+            convertView = LayoutInflater.from(this.context).inflate(
+                    R.layout.item_visit_info, null);
             viewHolder.nickName = (TextView) convertView
                     .findViewById(R.id.nick_name);
             viewHolder.praise = (TextView) convertView
@@ -91,8 +90,8 @@ public class VisitInfoAdapter extends BaseAdapter {
         }
         VisitInfo visitInfo = data.get(position);
         viewHolder.nickName.setText(visitInfo.getUsername());
-        viewHolder.praise
-                .setText("0".equals(visitInfo.getPraise()) ? "未评价" : "满意");
+        viewHolder.praise.setText("0".equals(visitInfo.getPraise()) ? "未评价"
+                : "满意");
         viewHolder.arriveTime.setText(visitInfo.getArriveTime());
         viewHolder.leaveTime.setText(visitInfo.getLeaveTime());
         viewHolder.city.setText(visitInfo.getCity());
@@ -100,8 +99,8 @@ public class VisitInfoAdapter extends BaseAdapter {
                 && visitInfo.getImageList().size() > 0) {
             viewHolder.photoGridview.setVisibility(View.VISIBLE);
             viewHolder.line.setVisibility(View.VISIBLE);
-            viewHolder.photoGridview
-                    .setAdapter(new PhotoAdapter(visitInfo.getImageList()));
+            viewHolder.photoGridview.setAdapter(new PhotoAdapter(visitInfo
+                    .getImageList()));
         } else {
             viewHolder.photoGridview.setVisibility(View.GONE);
             viewHolder.line.setVisibility(View.GONE);
@@ -158,22 +157,23 @@ public class VisitInfoAdapter extends BaseAdapter {
             PhotoViewHolder photoViewHolder;
             if (null == convertView) {
                 photoViewHolder = new PhotoViewHolder();
-                convertView = LayoutInflater.from(context)
-                        .inflate(R.layout.item_visit_info_photo, null);
+                convertView = LayoutInflater.from(context).inflate(
+                        R.layout.item_visit_info_photo, null);
                 photoViewHolder.pic = (ImageView) convertView
                         .findViewById(R.id.group_dynamic_photo);
                 LinearLayout.LayoutParams linearParams = (LinearLayout.LayoutParams) photoViewHolder.pic
                         .getLayoutParams(); // 取控件textView当前的布局参数
                 linearParams.width = (context.getResources()
-                        .getDisplayMetrics().widthPixels
-                        - CommonUtils.dip2px(context, 44)) / 3;// 控件的高强制设成20
+                        .getDisplayMetrics().widthPixels - CommonUtils.dip2px(
+                        context, 44)) / 3;// 控件的高强制设成20
                 linearParams.height = linearParams.width;
                 photoViewHolder.pic.setLayoutParams(linearParams); // 使设置好的布局参数应用到控件
                 convertView.setTag(photoViewHolder);
             } else {
                 photoViewHolder = (PhotoViewHolder) convertView.getTag();
             }
-            ImageLoader.getInstance().displayImage(photos.get(position),
+            ImageLoader.getInstance().displayImage(
+                    photos.get(position),
                     photoViewHolder.pic,
                     CVApplication.setAllDisplayImageOptions(context,
                             "default_load", "default_load", "default_load"));
