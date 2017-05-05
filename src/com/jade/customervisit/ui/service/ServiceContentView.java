@@ -1,4 +1,4 @@
-﻿package com.jade.customervisit.ui.service;
+package com.jade.customervisit.ui.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,7 +87,7 @@ public class ServiceContentView extends LinearLayout implements
 
             @Override
             public void onSuccess(int statusCode,
-                    QueryServiceContentResult result) {
+                                  QueryServiceContentResult result) {
                 if (result != null) {
                     if (result.isSuccesses()) {
                         dataInfo = result.getServiceContentList();
@@ -148,7 +148,7 @@ public class ServiceContentView extends LinearLayout implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
-            long id) {
+                            long id) {
         Intent intent = new Intent(getContext(), ServiceMainActivity.class);
         intent.putExtra("serviceContent", dataInfo.get(position));
         getContext().startActivity(intent);

@@ -410,8 +410,6 @@ public class TitleBarView extends LinearLayout implements OnLongClickListener,
             ((Activity) getContext()).onBackPressed();
             break;
         case R.id.titlebar_search_btn:
-            // SearchActivity.startForResult((Activity) getContext(), screen,
-            // searchType);
             break;
         default:
             break;
