@@ -115,11 +115,11 @@ public class CircleImageView extends ImageView {
      * Update the background color of the circle image view.
      */
     public void setBackgroundColor(int colorRes) {
-        if (getBackground() instanceof ShapeDrawable) {
-            final Resources res = getResources();
-            ((ShapeDrawable) getBackground()).getPaint().setColor(
-                    res.getColor(colorRes));
-        }
+//        if (getBackground() instanceof ShapeDrawable) {
+//            final Resources res = getResources();
+//            ((ShapeDrawable) getBackground()).getPaint().setColor(
+//                    res.getColor(colorRes));
+//        }
     }
 
     private class OvalShadow extends OvalShape {
